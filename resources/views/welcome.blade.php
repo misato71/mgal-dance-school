@@ -3,8 +3,12 @@
 @section('content')
     <div class="center jumbotron">
         <div class="text-center">
-            <h1>Welcome to the Mgal Dance School</h1>
-            <h2>管理者専用ページ</h2>
+            @if (Auth::check())
+                {{ Auth::user()->name }}
+            @else
+                <h1>Welcome to the Mgal Dance School</h1>
+                <h2>管理者専用ページ</h2>
+            @endif
         </div>
     </div>
 @endsection
