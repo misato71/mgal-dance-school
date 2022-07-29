@@ -17,7 +17,7 @@ class CreateInstructorsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('comment');
-            $table->string('imege')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

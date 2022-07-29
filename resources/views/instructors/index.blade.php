@@ -1,0 +1,27 @@
+@extends('layouts.app')
+
+@section('content')
+
+    <h1>講師一覧</h1>
+
+    @if (count($instructors) > 0)
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>講師名</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($instructors as $instructor)
+                <tr>
+                    <td>{{ $instructor->name }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+    
+    {{-- 講師作成ページへのリンク --}}
+    {!! link_to_route('instructors.create', '講師新規登録', [], ['class' => 'btn btn-primary']) !!}
+
+@endsection

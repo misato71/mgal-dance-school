@@ -7,7 +7,6 @@
                 {{ Auth::user()->name }}
             @else
                 <h1>Welcome to the Mgal Dance School</h1>
-                <h2>管理者専用ページ</h2>
             @endif
         </div>
     </div>

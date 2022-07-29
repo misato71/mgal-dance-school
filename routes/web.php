@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ToppagesController@index');
 
 //  認証
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -22,4 +20,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('lessons', 'LessonsController');
+    Route::resource('studios', 'StudiosController');
+    Route::resource('instructors', 'InstructorsController');
+    Route::resource('lesson-schedules', 'LessonSchedulesController');
 });
