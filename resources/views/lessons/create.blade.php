@@ -15,7 +15,7 @@
                 
                 <div class="form-group">
                     {!! Form::label('comment', '内容（必須）') !!}
-                    {!! Form::text('comment', null, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
                 </div>
 
                 {!! Form::submit('登録する', ['class' => 'btn btn-primary']) !!}

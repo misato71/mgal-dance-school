@@ -13,15 +13,7 @@ class ToppagesController extends Controller
     public function index() {
         if(Auth::check()) {
             if (Auth::user()->is_admin == 1) {
-                 // スケジュール一覧を取得
-                $lesson_schedules = LessonSchedule::all();
-                $lessons = Lesson::all();
-        
-                // スケジュール一覧ビューでそれを表示
-                return view('lesson-schedules.index', [
-                    'lesson_schedules' => $lesson_schedules,
-                    'lessons' => $lessons,
-                ]);
+                return redirect()->route('lesson-schedules.index');
             } elseif (Auth::user()->is_admin == 0) {
                 return view('welcome');
             }

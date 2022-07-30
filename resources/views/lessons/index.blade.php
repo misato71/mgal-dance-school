@@ -22,6 +22,6 @@
     @endif
     
     {{-- レッスン作成ページへのリンク --}}
-    {!! link_to_route('lessons.create', '新規登録', [], ['class' => 'btn btn-primary']) !!}
+    {!! link_to_route('lessons.create', 'レッスン新規登録', [], ['class' => 'btn btn-primary']) !!}
 
 @endsection

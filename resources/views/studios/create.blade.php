@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-6">
-            {!! Form::model($studio, ['route' => 'studios.store']) !!}
+            {!! Form::model($studio, ['route' => 'studios.store', 'files' => true]) !!}
             
                 <div class="form-group">
                     {!! Form::label('name', 'スタジオ名（必須）') !!}

@@ -13,7 +13,7 @@ class LessonSchedulesController extends Controller
 {
     public function index() {
         // スケジュール一覧を取得
-        $lesson_schedules = LessonSchedule::all();
+        $lesson_schedules = LessonSchedule::orderBy('date')->paginate(10);
         $lessons = Lesson::all();
         
         // スケジュール一覧ビューでそれを表示
@@ -42,10 +42,10 @@ class LessonSchedulesController extends Controller
     {
         // バリデーション
         $request->validate([
-            'date' => 'required|max:50',
-            'start_time' => 'required|max:255',
-            'finish_time' => 'required|max:255',
-            'reservation_limit' => 'required',
+            'date' => 'required|date',
+            'start_time' => 'required|max:10',
+            'finish_time' => 'required|max:10',
+            'reservation_limit' => 'required|integer',
         ]);
 
         // スケジュールを登録

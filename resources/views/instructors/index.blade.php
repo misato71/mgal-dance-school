@@ -9,12 +9,14 @@
             <thead>
                 <tr>
                     <th>講師名</th>
+                    <th>画像</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($instructors as $instructor)
                 <tr>
                     <td>{{ $instructor->name }}</td>
+                    <td><img src="{{ asset('uploads')}}/{{$instructor->image}}" alt="{{ $instructor->image }}" class="instructor-icon"></td>
                 </tr>
                 @endforeach
             </tbody>
