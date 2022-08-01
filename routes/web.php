@@ -27,4 +27,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('studios', 'StudiosController');
     Route::resource('instructors', 'InstructorsController');
     Route::resource('lesson-schedules', 'LessonSchedulesController');
+    
+    //  予約   
+    Route::get('reservations', 'ReservationsController@index')->name('reservations');
+    Route::get('reservations/{id}/create', 'ReservationsController@create')->name('reservations.create');
+    Route::post('reservations/store', 'ReservationsController@store')->name('reservations.store');
+    Route::get('reservations/{id}/show', 'ReservationsController@show')->name('reservations.show');
+    Route::put('reservations/update', 'ReservationsController@update')->name('reservations.update');
+
 });
+

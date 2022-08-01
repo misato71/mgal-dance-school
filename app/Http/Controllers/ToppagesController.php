@@ -15,7 +15,7 @@ class ToppagesController extends Controller
             if (Auth::user()->is_admin == 1) {
                 return redirect()->route('lesson-schedules.index');
             } elseif (Auth::user()->is_admin == 0) {
-                return view('welcome');
+                return redirect()->route('lesson-schedules.index');
             }
         } else {
             return view('welcome');

@@ -11,19 +11,19 @@ use App\Studio;
 
 class LessonSchedulesController extends Controller
 {
-    public function index() {
+    public function index() 
+    {
         // スケジュール一覧を取得
         $lesson_schedules = LessonSchedule::orderBy('date')->paginate(10);
-        $lessons = Lesson::all();
         
         // スケジュール一覧ビューでそれを表示
         return view('lesson-schedules.index', [
             'lesson_schedules' => $lesson_schedules,
-            'lessons' => $lessons,
         ]);
     }
     
-    public function create() {
+    public function create() 
+    {
         $lesson_schedule = new LessonSchedule;
         $lessons = Lesson::all();
         $instructors = Instructor::all();
@@ -61,5 +61,16 @@ class LessonSchedulesController extends Controller
 
         // 前のURLへリダイレクト
         return redirect('lesson-schedules');
+    }
+    
+    public function show($id)
+    {
+        // idの値でスケジュールを検索して取得
+        $lesson_schedule = LessonSchedule::findOrFail($id);
+
+        // スケジュール詳細ビューでそれらを表示
+        return view('lesson-schedules.show', [
+            'lesson_schedule' => $lesson_schedule,
+        ]);
     }
 }

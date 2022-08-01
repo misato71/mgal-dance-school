@@ -25,4 +25,9 @@ class LessonSchedule extends Model
         return $this->belongsTo(Instructor::class);
     }
     
+    public function reservation_lists()
+    {
+        return $this->hasMany(ReservationList::class);
+    }
+    
 }

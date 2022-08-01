@@ -12,6 +12,7 @@
                     <th>時間</th>
                     <th>レッスン</th>
                     <th>残り予約枠</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                     @else
                         <td>残り{{ $lesson_schedule->reservation_limit }}席</td>
                     @endif
+                    <td>{!! link_to_route('lesson-schedules.show', '詳細', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-link']) !!}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -33,7 +35,9 @@
         {{ $lesson_schedules->links() }}
     @endif
     
-    {{-- スケジュール作成ページへのリンク --}}
-    {!! link_to_route('lesson-schedules.create', 'スケジュール新規登録', [], ['class' => 'btn btn-primary']) !!}
-
+    @if (Auth::user()->is_admin == 1)
+        {{-- スケジュール作成ページへのリンク --}}
+        {!! link_to_route('lesson-schedules.create', 'スケジュール新規登録', [], ['class' => 'btn btn-primary']) !!}
+    @endif
+    
 @endsection
