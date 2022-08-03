@@ -4,7 +4,7 @@
     
     <h1>予約内容</h1>
     @if ($reservation_list->status == 0)
-        <h2>※こちらの予約はキャンセル済みです。</h2>
+        <h3>※こちらの予約はキャンセル済みです。</h3>
     @endif
     <div class="center">
         <div class="card">

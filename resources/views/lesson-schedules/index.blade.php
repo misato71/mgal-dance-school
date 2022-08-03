@@ -26,7 +26,7 @@
                     @else
                         <td>残り{{ $lesson_schedule->reservation_limit }}席</td>
                     @endif
-                    <td>{!! link_to_route('lesson-schedules.show', '詳細', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-link']) !!}</td>
+                    <td>{!! link_to_route('lesson-schedules.show', '詳細', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-primary']) !!}</td>
                 </tr>
                 @endforeach
             </tbody>

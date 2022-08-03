@@ -19,10 +19,14 @@
             </div>
         </div>
         
-        {{-- 予約作成ページへのリンク --}}
-        {!! Form::open(['route' => ['reservations.store', ['lesson_schedule_id' => $lesson_schedule->id, 'user_id' => Auth::user()->id]], 'method' => 'post']) !!}
-            {!! Form::submit('予約を登録する', ['class' => 'btn btn-primary btn-lg btn-block']) !!}
-        {!! Form::close() !!}
+        @if ($lesson_schedule->reservation_limit >= 1)
+            {{-- 予約作成ページへのリンク --}}
+            {!! Form::open(['route' => ['reservations.store', ['lesson_schedule_id' => $lesson_schedule->id, 'user_id' => Auth::user()->id]], 'method' => 'post']) !!}
+                {!! Form::submit('予約を登録する', ['class' => 'btn btn-primary btn-lg btn-block']) !!}
+            {!! Form::close() !!}
+        @elseif ($lesson_schedule->reservation_limit <= 0)
+            <button type="button" class="btn btn-lg btn-block btn-warning" disabled>受付しておりません</button>
+        @endif
         
         {{-- もどるのリンク --}}
         {!! link_to_route('lesson-schedules.index', 'もどる', [], ['class' => 'btn btn-secondary btn-lg btn-block']) !!}

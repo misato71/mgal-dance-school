@@ -23,8 +23,25 @@
             </div>
         </div>
         
-        {{-- 予約作成ページへのリンク --}}
-        {!! link_to_route('reservations.create', '予約する', ['id' => $lesson_schedule->id], ['class' => 'btn btn-primary btn-lg btn-block']) !!}
+        @if (Auth::user()->is_admin == 0)
+            <?php $exist = ''; ?>
+            @foreach (Auth::user()->reservation_lists as $reservation_list)
+                @if ($reservation_list->lesson_schedule_id == $lesson_schedule->id)
+                    <h3>※こちらの予約は予約中です</h3>
+                    <?php $exist = true; ?>
+                
+                @endif
+            @endforeach
+            
+            @if ($lesson_schedule->reservation_limit <= 0 || $exist == true)
+                <button type="button" class="btn btn-lg btn-block btn-warning" disabled>受付しておりません</button>
+            @elseif ($lesson_schedule->reservation_limit >= 1)
+                {{-- 予約作成ページへのリンク --}}
+                {!! link_to_route('reservations.create', '予約する', ['id' => $lesson_schedule->id], ['class' => 'btn btn-primary btn-lg btn-block']) !!}    
+                
+            @endif
+        @endif   
+            
         {{-- もどるのリンク --}}
         {!! link_to_route('lesson-schedules.index', 'もどる', [], ['class' => 'btn btn-secondary btn-lg btn-block']) !!}
     </div>
