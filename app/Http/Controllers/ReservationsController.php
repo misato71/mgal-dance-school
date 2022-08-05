@@ -15,18 +15,33 @@ class ReservationsController extends Controller
         if (\Auth::check()) { // 認証済みの場合
             // 認証済みユーザを取得
             $user = \Auth::user();
-            // ユーザの投稿の一覧を作成日時の降順で取得
-            // （後のChapterで他ユーザの投稿も取得するように変更しますが、現時点ではこのユーザの投稿のみ取得します）
-            $reservation_lists = $user->reservation_lists()->orderBy('created_at', 'desc')->paginate(10);
-
-            $data = [
-                'user' => $user,
-                'reservation_lists' => $reservation_lists,
-            ];
+            
+            // 管理者用予約一覧を取得
+            if ($user->is_admin === 1) {
+                $lesson_schedules = LessonSchedule::orderBy('date')->paginate(1);
+                
+                $data = [
+                    'lesson_schedules' => $lesson_schedules,
+                ];
+                return view('reservation_lists.index', $data);
+            
+            //ユーザの予約一覧を取得
+            } else {
+                // ユーザの投稿の一覧を作成日時の降順で取得
+                // （後のChapterで他ユーザの投稿も取得するように変更しますが、現時点ではこのユーザの投稿のみ取得します）
+                $reservation_lists = $user->reservation_lists()->orderBy('created_at', 'desc')->paginate(10);
+    
+                $data = [
+                    'user' => $user,
+                    'reservation_lists' => $reservation_lists,
+                ];
+                
+                // 予約一覧ビューでそれを表示
+                return view('reservations.index', $data);
+            }
+            
         }
         
-        // 予約一覧ビューでそれを表示
-        return view('reservations.index', $data);
     }
     
     public function create($id) 
@@ -79,7 +94,7 @@ class ReservationsController extends Controller
     {
         // idの値で予約を検索して取得
         $reservation_list = ReservationList::findOrFail($id);
-
+        
         // 予約内容ビューでそれらを表示
         return view('reservations.show', [
             'reservation_list' => $reservation_list,
@@ -91,17 +106,21 @@ class ReservationsController extends Controller
         // idの値で予約を検索して取得
         $reservation_list = ReservationList::findOrFail($request->reservation_list);
         
-        // 予約をキャンセルのstatus=0に更新
-        $reservation_list->status = 0;
-        $reservation_list->save();
+        if (\Auth::id() === $reservation_list->user_id) {
+            // 予約をキャンセルのstatus=0に更新
+            $reservation_list->status = 0;
+            $reservation_list->save();
+            
+            // 予約枠、reservation_limit を+1にする
+            $lesson_schedule = LessonSchedule::findOrFail($reservation_list->lesson_schedule_id);
+            $lesson_schedule->reservation_limit = $lesson_schedule->reservation_limit + 1;
+            $lesson_schedule->save();
+    
+            // トップページへリダイレクトさせる
+            return redirect('reservations');
+        }
         
-        // 予約枠、reservation_limit を+1にする
-        $lesson_schedule = LessonSchedule::findOrFail($reservation_list->lesson_schedule_id);
-        $lesson_schedule->reservation_limit = $lesson_schedule->reservation_limit + 1;
-        $lesson_schedule->save();
-
-        // トップページへリダイレクトさせる
-        return redirect('reservations');
+        return back();
     }
     
     

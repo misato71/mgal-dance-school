@@ -33,7 +33,7 @@
                 @endif
             @endforeach
             
-            @if ($lesson_schedule->reservation_limit <= 0 || $exist == true)
+            @if ($lesson_schedule->reservation_limit <= 0 || $exist == true || $lesson_schedule->date <= $today)
                 <button type="button" class="btn btn-lg btn-block btn-warning" disabled>受付しておりません</button>
             @elseif ($lesson_schedule->reservation_limit >= 1)
                 {{-- 予約作成ページへのリンク --}}

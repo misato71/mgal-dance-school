@@ -12,11 +12,7 @@ class ToppagesController extends Controller
 {
     public function index() {
         if(Auth::check()) {
-            if (Auth::user()->is_admin == 1) {
-                return redirect()->route('lesson-schedules.index');
-            } elseif (Auth::user()->is_admin == 0) {
-                return redirect()->route('lesson-schedules.index');
-            }
+            return redirect()->route('lesson-schedules.index');
         } else {
             return view('welcome');
         }

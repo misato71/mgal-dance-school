@@ -21,7 +21,10 @@
                     <td>{{ $lesson_schedule->date }}</td>
                     <td>{{ $lesson_schedule->start_time }}～{{ $lesson_schedule->finish_time }}</td>
                     <td>{{ $lesson_schedule->lesson->name}}</td>
-                    @if ($lesson_schedule->reservation_limit == 0)
+                    
+                    @if ($lesson_schedule->date <= $today)
+                        <td>受付終了</td>
+                    @elseif ($lesson_schedule->reservation_limit == 0)
                         <td>満席</td>
                     @else
                         <td>残り{{ $lesson_schedule->reservation_limit }}席</td>

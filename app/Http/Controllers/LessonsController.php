@@ -22,29 +22,37 @@ class LessonsController extends Controller
     // getでlessons/createにアクセスされた場合の「新規登録画面表示処理」
     public function create()
     {
-        $lesson = new Lesson;
-
-        // レッスン作成ビューを表示
-        return view('lessons.create', [
-            'lesson' => $lesson,
-        ]);
+        if (\Auth::user()->is_admin === 1) {
+            $lesson = new Lesson;
+    
+            // レッスン作成ビューを表示
+            return view('lessons.create', [
+                'lesson' => $lesson,
+            ]);
+        }
+        
+        return back();
     }
     // postでlessons/にアクセスされた場合の「新規登録処理」
     public function store(Request $request)
     {
-        // バリデーション
-        $request->validate([
-            'name' => 'required|max:50',
-            'comment' => 'required|max:255',
-        ]);
-
-        // レッスンを登録
-        $lesson = new Lesson;
-        $lesson->name = $request->name;
-        $lesson->comment = $request->comment;
-        $lesson->save();
-
-        // 前のURLへリダイレクト
-        return redirect('lessons');
+        if (\Auth::user()->is_admin === 1) {
+            // バリデーション
+            $request->validate([
+                'name' => 'required|max:50',
+                'comment' => 'required|max:255',
+            ]);
+    
+            // レッスンを登録
+            $lesson = new Lesson;
+            $lesson->name = $request->name;
+            $lesson->comment = $request->comment;
+            $lesson->save();
+    
+            // 前のURLへリダイレクト
+            return redirect('lessons');
+        }
+        
+        return back();
     }
 }
