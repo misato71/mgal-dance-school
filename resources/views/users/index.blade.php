@@ -2,8 +2,15 @@
 
 @section('content')
     
-    <h1>お客様一覧</h1>
+    <h1>お客様管理</h1>
     <p>こんにちは、{{ Auth::user()->name }}さん</p>
+    
+    {!! Form::open(['route' => 'users.search', 'method' => 'get']) !!}
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="名前を入力" name="keyword">
+            <button class="btn btn-outline-success" type="submit" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
+        </div>
+    {!! Form::close() !!}
     
     @if (count($users) > 0)
         <table class="table table-striped">

@@ -5,6 +5,13 @@
     <h1>スケジュール一覧</h1>
 
     @if (count($lesson_schedules) > 0)
+        <h2>{{ $year }} 年{{ $month }}月～</h2>
+        
+        @if ($next_month == null)
+            {!! link_to_route('lesson-schedules.index', '今月', [], ['class' => 'btn btn-link']) !!}
+        @else
+        {!! link_to_route('lesson-schedules.next_month', '翌月', ['next_month' => $next_month], ['class' => 'btn btn-link']) !!}
+        @endif
         <table class="table table-striped">
             <thead>
                 <tr>

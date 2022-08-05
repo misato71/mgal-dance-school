@@ -13,17 +13,56 @@ class LessonSchedulesController extends Controller
 {
     public function index() 
     {
-        // スケジュール一覧を取得
-        $lesson_schedules = LessonSchedule::orderBy('date')->paginate(10);
         // 本日を取得
         $today = date("Y-m-d");
-        // 本日以降のスケジュール一覧を取得
-        // $lesson_schedules = LessonSchedule::where('date', '>=', $today)->paginate(10);
+        // 今月を取得
+        $this_month = date('Y-m-d', strtotime('first day of this month'));
+        // 今月のスケジュール一覧を取得
+        $lesson_schedules = LessonSchedule::where('date', '>=', $this_month)->orderby('date')->paginate(10);
+        
+        // 今年を取得
+        $year = date("Y");
+        // 今月を取得
+        $month = date("m");
+        
+        // 翌月を取得
+        $next_month = date('Y-m-d', strtotime('first day of next month'));
         
         // スケジュール一覧ビューでそれを表示
         return view('lesson-schedules.index', [
             'lesson_schedules' => $lesson_schedules,
             'today' => $today,
+            'year' => $year,
+            'month' => $month,
+            'next_month' => $next_month,
+        ]);
+    }
+    
+    public function next_month($next_month) {
+        // 本日を取得
+        $today = date("Y-m-d");
+        // 翌月のスケジュール一覧を取得
+        $lesson_schedules = LessonSchedule::where('date', '>=', $next_month)->orderby('date')->paginate(10);
+        
+        // 今年を取得
+        $year = date("Y");
+        // 今月を取得
+        $month = date("m");
+        
+        // 翌月、翌年を取得
+        $next = strtotime('+1 month',mktime(0, 0, 0, $month, 1, $year));
+        $year = date("Y",$next);
+        $month = date("m",$next);
+        
+        $next_month = null;
+        
+        // スケジュール一覧ビューでそれを表示
+        return view('lesson-schedules.index', [
+            'lesson_schedules' => $lesson_schedules,
+            'today' => $today,
+            'year' => $year,
+            'month' => $month,
+            'next_month' => $next_month,
         ]);
     }
     

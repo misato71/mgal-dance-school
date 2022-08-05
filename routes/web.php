@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('instructors', 'InstructorsController');
     Route::resource('lesson-schedules', 'LessonSchedulesController');
     
+    Route::get('lesson-schedules/{next_month}/next_month', 'LessonSchedulesController@next_month')->name('lesson-schedules.next_month');
+    
     // 予約   
     Route::get('reservations', 'ReservationsController@index')->name('reservations');
     Route::get('reservations/{id}/create', 'ReservationsController@create')->name('reservations.create');
@@ -36,7 +38,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('reservations/{id}/show', 'ReservationsController@show')->name('reservations.show');
     Route::put('reservations/update', 'ReservationsController@update')->name('reservations.update');
     
+    
     // お客様情報
+    Route::get('users/search', 'UsersController@search')->name('users.search');
     Route::resource('users', 'UsersController');
     
 });

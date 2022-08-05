@@ -12,6 +12,32 @@ class UsersController extends Controller
         if (\Auth::user()->is_admin === 1){
             $users = User::all();
             $data = [
+                'users' => $users,
+            ];
+            return view('users.index', $data);
+        }
+        
+        return back();
+    }
+    
+    public function search(Request $request) {
+        // キーワードを受け取り
+        $keyword = $request->input('keyword');
+        // クエリ生成
+        $query = User::query();
+        
+         //もしキーワードがあったら
+        if(!empty($keyword)) {
+            $query->where('name','like','%'.$keyword.'%');
+            $query->orWhere('kana_name','like','%'.$keyword.'%');
+        }
+        
+        // 全件取得 +ページネーション
+        $users = $query->orderBy('id','desc')->paginate(10);
+        
+        $data = [];
+        if (\Auth::user()->is_admin === 1){
+            $data = [
                 'users' => $users, 
             ];
             return view('users.index', $data);

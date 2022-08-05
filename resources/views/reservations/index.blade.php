@@ -24,7 +24,9 @@
                     <td>{{ $reservation_list->lesson_schedule->lesson->name}}</td>
                     @if ($reservation_list->status == 0)
                         <td>キャンセル済み</td>
-                    @elseif ($reservation_list->status == 1)
+                    @elseif ($reservation_list->lesson_schedule->date < date("Y-m-d"))
+                        <td>受講済み</td>
+                    @else
                         <td>予約中</td>
                     @endif
                     <td>{!! link_to_route('reservations.show', '予約内容', ['id' => $reservation_list->id], ['class' => 'btn btn-success']) !!}</td>

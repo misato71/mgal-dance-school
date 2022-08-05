@@ -27,7 +27,7 @@
             <?php $exist = ''; ?>
             @foreach (Auth::user()->reservation_lists as $reservation_list)
                 @if ($reservation_list->lesson_schedule_id == $lesson_schedule->id)
-                    <h3>※こちらの予約は予約中です</h3>
+                    <h3>※こちらの予約は予約済みです</h3>
                     <?php $exist = true; ?>
                 
                 @endif
