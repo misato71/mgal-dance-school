@@ -24,7 +24,6 @@
             
             {{-- ユーザ登録ページへのリンク --}}
             <p class="mt-2">New user? {!! link_to_route('signup.get', 'Sign up now!') !!}</p>
-            
         </div>
     </div>
 @endsection

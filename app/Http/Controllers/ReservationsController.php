@@ -15,10 +15,12 @@ class ReservationsController extends Controller
         if (\Auth::check()) { // 認証済みの場合
             // 認証済みユーザを取得
             $user = \Auth::user();
-            
+            // 本日を取得
+                $today = date('Y-m-d');
             // 管理者用予約一覧を取得
-            if ($user->is_admin === 1) {
-                $lesson_schedules = LessonSchedule::orderBy('date')->paginate(1);
+            if ($user->is_admin == 1) {
+                // 本日からの予約を取得
+                $lesson_schedules = LessonSchedule::where('date', '>=', $today)->orderby('date')->paginate(1);
                 
                 $data = [
                     'lesson_schedules' => $lesson_schedules,
@@ -26,14 +28,21 @@ class ReservationsController extends Controller
                 return view('reservation_lists.index', $data);
             
             //ユーザの予約一覧を取得
-            } else {
-                // ユーザの投稿の一覧を作成日時の降順で取得
-                // （後のChapterで他ユーザの投稿も取得するように変更しますが、現時点ではこのユーザの投稿のみ取得します）
-                $reservation_lists = $user->reservation_lists()->orderBy('created_at', 'desc')->paginate(10);
-    
+            } elseif ($user->is_admin == 0) {
+                
+                // ユーザの予約一覧をレッスンの日付順に取得
+                $reservation_lists = ReservationList::select('reservation_lists.*')
+                    ->join('lesson_schedules', 'reservation_lists.lesson_schedule_id', '=', 'lesson_schedules.id')
+                    ->where('reservation_lists.user_id', $user->id) //ログインしている自分自身のid
+                    ->orderBy('lesson_schedules.date', 'DESC')
+                    ->paginate(10);
+                
+                // ユーザの予約一覧を作成日時の降順で取得
+                // $reservation_lists = $user->reservation_lists()->orderBy('created_at', 'desc')->paginate(10);
+                
                 $data = [
-                    'user' => $user,
                     'reservation_lists' => $reservation_lists,
+                    'today' => $today,
                 ];
                 
                 // 予約一覧ビューでそれを表示
@@ -42,6 +51,34 @@ class ReservationsController extends Controller
             
         }
         
+    }
+    
+    public function search(Request $request) {
+        //バリデーション
+        $request->validate([
+            'date' => ['date'],
+        ]);
+        // キーワードを受け取り
+        $keyword = $request->input('keyword');
+        // クエリ生成
+        $query = LessonSchedule::query();
+        
+         //もしキーワードがあったら
+        if(!empty($keyword)) {
+            $query->where('date','like','%'.$keyword.'%');
+        }
+        
+        // 全件取得 +ページネーション
+        $lesson_schedules = $query->orderBy('id','desc')->paginate(1);
+        
+        if (\Auth::user()->is_admin === 1){
+            $data = [
+                    'lesson_schedules' => $lesson_schedules,
+            ];
+            return view('reservation_lists.index', $data);
+        }
+        
+        return back();
     }
     
     public function create($id) 
@@ -54,11 +91,11 @@ class ReservationsController extends Controller
                 $exist = true;
             }
         }
-        
+        // すでに予約済みだったら、前のページへバック
         if ($exist == true) {
             return back();
         } else {
-            // 予約作成をビューで表示
+            // 予約してない場合は、予約作成をビューで表示
             return view('reservations.create', [
                 'lesson_schedule' => $lesson_schedule,
             ]);
@@ -95,10 +132,12 @@ class ReservationsController extends Controller
         // idの値で予約を検索して取得
         $reservation_list = ReservationList::findOrFail($id);
         
-        // 予約内容ビューでそれらを表示
-        return view('reservations.show', [
-            'reservation_list' => $reservation_list,
-        ]);
+        if ($reservation_list->user_id == \Auth::id()){
+            // 予約内容ビューでそれらを表示
+            return view('reservations.show', [
+                'reservation_list' => $reservation_list,
+            ]);
+        }
     }
     
     public function update(Request $request)

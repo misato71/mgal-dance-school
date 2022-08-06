@@ -11,10 +11,10 @@ class LessonsController extends Controller
     // getでlessons/にアクセスされた場合の「一覧表示処理」
     public function index()
     {
-        // メッセージ一覧を取得
+        // レッスン一覧を取得
         $lessons = Lesson::all();
 
-        // メッセージ一覧ビューでそれを表示
+        // レッスン一覧ビューでそれを表示
         return view('lessons.index', [
             'lessons' => $lessons,
         ]);
@@ -45,6 +45,60 @@ class LessonsController extends Controller
     
             // レッスンを登録
             $lesson = new Lesson;
+            $lesson->name = $request->name;
+            $lesson->comment = $request->comment;
+            $lesson->save();
+    
+            // 前のURLへリダイレクト
+            return redirect('lessons');
+        }
+        
+        return back();
+    }
+    
+    public function show($id)
+    {
+        if (\Auth::user()->is_admin === 1) {
+             // idの値でレッスンを検索して取得
+            $lesson = Lesson::findOrFail($id);
+    
+            // レッスン作成ビューを表示
+            return view('lessons.show', [
+                'lesson' => $lesson,
+            ]);
+        }
+        
+        return back();
+    }
+    
+    public function edit($id) 
+    {
+       if (\Auth::user()->is_admin === 1) {
+             // idの値でレッスンを検索して取得
+            $lesson = Lesson::findOrFail($id);
+    
+            // レッスン作成ビューを表示
+            return view('lessons.edit', [
+                'lesson' => $lesson,
+            ]);
+        }
+        
+        return back(); 
+    }
+    
+    public function update(Request $request, $id)
+    {
+        if (\Auth::user()->is_admin === 1) {
+            // バリデーション
+            $request->validate([
+                'name' => 'required|max:50',
+                'comment' => 'required|max:255',
+            ]);
+            
+            // idの値でレッスンを検索して取得
+            $lesson = Lesson::findOrFail($id);
+    
+            // レッスンを更新
             $lesson->name = $request->name;
             $lesson->comment = $request->comment;
             $lesson->save();

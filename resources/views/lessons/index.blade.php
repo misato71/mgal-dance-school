@@ -9,12 +9,14 @@
             <thead>
                 <tr>
                     <th>レッスン名</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($lessons as $lesson)
                 <tr>
                     <td>{{ $lesson->name }}</td>
+                    <td>{!! link_to_route('lessons.show', '詳細', ['lesson' => $lesson->id], ['class' => 'btn btn-success']) !!}</td>
                 </tr>
                 @endforeach
             </tbody>

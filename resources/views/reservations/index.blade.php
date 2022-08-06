@@ -3,7 +3,7 @@
 @section('content')
     
     <h1>予約一覧</h1>
-    <p>こんにちは、{{ $user->name }}さん</p>
+    <p>こんにちは、{{ Auth::user()->name }}さん</p>
     
     @if (count($reservation_lists) > 0)
         <table class="table table-striped">
@@ -24,7 +24,7 @@
                     <td>{{ $reservation_list->lesson_schedule->lesson->name}}</td>
                     @if ($reservation_list->status == 0)
                         <td>キャンセル済み</td>
-                    @elseif ($reservation_list->lesson_schedule->date < date("Y-m-d"))
+                    @elseif ($reservation_list->lesson_schedule->date < $today)
                         <td>受講済み</td>
                     @else
                         <td>予約中</td>

@@ -4,7 +4,15 @@
     
     <h1>予約一覧</h1>
     
+    {!! Form::open(['route' => 'reservations.search', 'method' => 'get']) !!}
+        <div class="input-group">
+            <input type="date" class="form-control" placeholder="レッスン日を入力" name="keyword">
+            <button class="btn btn-outline-success" type="submit" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
+        </div>
+    {!! Form::close() !!}
+    
     @if (count($lesson_schedules) > 0)
+    
         @foreach ($lesson_schedules as $lesson_schedule)
             
             <h5><i class="far fa-calendar-alt"></i>{{ $lesson_schedule->date }}

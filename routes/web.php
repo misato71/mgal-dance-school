@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('lesson-schedules/{next_month}/next_month', 'LessonSchedulesController@next_month')->name('lesson-schedules.next_month');
     
     // 予約   
+    Route::get('reservations/search', 'ReservationsController@search')->name('reservations.search');
     Route::get('reservations', 'ReservationsController@index')->name('reservations');
     Route::get('reservations/{id}/create', 'ReservationsController@create')->name('reservations.create');
     Route::post('reservations/store', 'ReservationsController@store')->name('reservations.store');
@@ -42,6 +43,10 @@ Route::group(['middleware' => ['auth']], function () {
     // お客様情報
     Route::get('users/search', 'UsersController@search')->name('users.search');
     Route::resource('users', 'UsersController');
+    
+    //パスワード変更
+    Route::get('/password/change','ChangePasswordController@edit')->name('password.edit');
+    Route::put('/password/change','ChangePasswordController@update')->name('password.change');
     
 });
 

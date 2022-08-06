@@ -21,6 +21,10 @@ class UsersController extends Controller
     }
     
     public function search(Request $request) {
+        //バリデーション
+        $request->validate([
+            'name' => ['string', 'max:255'],
+        ]);
         // キーワードを受け取り
         $keyword = $request->input('keyword');
         // クエリ生成

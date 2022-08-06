@@ -1,16 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <h1>スケジュール新規登録</h1>
+    <div class="text-center">
+        <h1>スケジュール編集</h1>
+    </div>
 
     <div class="row">
-        <div class="col-6">
-            {!! Form::model($lesson_schedule, ['route' => 'lesson-schedules.store']) !!}
-                
+        <div class="col-sm-6 offset-sm-3">
+            {!! Form::model($lesson_schedule, ['route' => ['lesson-schedules.update', $lesson_schedule->id], 'method' => 'put']) !!}
+
                 <div class="form-group">
                     {!! Form::label('date', 'レッスン日（必須）') !!}
-                    {!! Form::date('date', null, ['class' => 'form-control']) !!}
+                    {!! Form::date('date', $lesson_schedule->date, ['class' => 'form-control']) !!}
                 </div>
             
                 <div class="form-group">
@@ -25,12 +26,12 @@
                 
                 <div class="form-group">
                     {!! Form::label('start_time', '開始時間（必須）') !!}
-                    {!! Form::time('start_time', null, ['class' => 'form-control']) !!}
+                    {!! Form::time('start_time', $lesson_schedule->start_time, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('finish_time', '終了時間（必須）') !!}
-                    {!! Form::time('finish_time', null, ['class' => 'form-control']) !!}
+                    {!! Form::time('finish_time', $lesson_schedule->finish_time, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
@@ -45,7 +46,7 @@
                 
                 <div class="form-group">
                     {!! Form::label('reservation_limit', '予約できる人数（必須）') !!}
-                    {!! Form::text('reservation_limit', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('reservation_limit', $lesson_schedule->reservation_limit, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
@@ -58,7 +59,7 @@
                     </select>
                 </div>
 
-                {!! Form::submit('登録する', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('編集する', ['class' => 'btn btn-primary btn-block']) !!}
 
             {!! Form::close() !!}
         </div>

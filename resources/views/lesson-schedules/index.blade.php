@@ -19,7 +19,7 @@
                     <th>時間</th>
                     <th>レッスン</th>
                     <th>残り予約枠</th>
-                    <th></th>
+                    <th>予約</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,14 +29,14 @@
                     <td>{{ $lesson_schedule->start_time }}～{{ $lesson_schedule->finish_time }}</td>
                     <td>{{ $lesson_schedule->lesson->name}}</td>
                     
-                    @if ($lesson_schedule->date <= $today)
+                    @if ($lesson_schedule->date < $today)
                         <td>受付終了</td>
                     @elseif ($lesson_schedule->reservation_limit == 0)
                         <td>満席</td>
                     @else
                         <td>残り{{ $lesson_schedule->reservation_limit }}席</td>
                     @endif
-                    <td>{!! link_to_route('lesson-schedules.show', '詳細', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-primary']) !!}</td>
+                    <td>{!! link_to_route('lesson-schedules.show', '詳細', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-success']) !!}</td>
                 </tr>
                 @endforeach
             </tbody>
