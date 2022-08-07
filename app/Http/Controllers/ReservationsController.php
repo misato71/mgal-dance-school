@@ -29,16 +29,8 @@ class ReservationsController extends Controller
             
             //ユーザの予約一覧を取得
             } elseif ($user->is_admin == 0) {
-                
-                // ユーザの予約一覧をレッスンの日付順に取得
-                $reservation_lists = ReservationList::select('reservation_lists.*')
-                    ->join('lesson_schedules', 'reservation_lists.lesson_schedule_id', '=', 'lesson_schedules.id')
-                    ->where('reservation_lists.user_id', $user->id) //ログインしている自分自身のid
-                    ->orderBy('lesson_schedules.date', 'DESC')
-                    ->paginate(10);
-                
-                // ユーザの予約一覧を作成日時の降順で取得
-                // $reservation_lists = $user->reservation_lists()->orderBy('created_at', 'desc')->paginate(10);
+                // ユーザの投稿の一覧を作成日時の降順で取得
+                $reservation_lists = $user->reservation_lists()->orderBy('created_at', 'desc')->paginate(10);
                 
                 $data = [
                     'reservation_lists' => $reservation_lists,
@@ -84,6 +76,7 @@ class ReservationsController extends Controller
     public function create($id) 
     {
         $lesson_schedule = LessonSchedule::findOrFail($id);
+        
         $exist = '';
         // 二重予約の禁止
         foreach (\Auth::user()->reservation_lists as $reservation_list) {
@@ -101,6 +94,7 @@ class ReservationsController extends Controller
             ]);
         }
     }
+    
     
     public function store(Request $request)
     {

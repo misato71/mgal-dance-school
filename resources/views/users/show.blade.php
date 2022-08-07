@@ -2,7 +2,7 @@
 
 @section('content')
     
-    <h1>お客様情報詳細</h1>
+    <h2>お客様情報詳細</h2>
     
     <table class="table table-striped table-bordered">
         <tbody>

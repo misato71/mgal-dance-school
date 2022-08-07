@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1>レッスン一覧</h1>
+    <h2>レッスン一覧</h2>
 
     @if (count($lessons) > 0)
         <table class="table table-striped">

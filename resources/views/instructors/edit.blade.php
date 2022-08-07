@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="text-center">
-        <h2>講師新規登録</h2>
+        <h1>講師編集</h1>
     </div>
 
     <div class="row">
         <div class="col-sm-6 offset-sm-3">
-            {!! Form::model($instructor, ['route' => 'instructors.store', 'files' => true]) !!}
+            {!! Form::model($instructor, ['route' => ['instructors.update', $instructor->id], 'files' => true, 'method' => 'put']) !!}
             
                 <div class="form-group">
                     {!! Form::label('name', '講師名（必須）') !!}

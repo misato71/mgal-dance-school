@@ -11,12 +11,12 @@
             
                 <div class="form-group">
                     {!! Form::label('name', 'レッスン名（必須）') !!}
-                    {!! Form::text('name', $lesson->name, ['class' => 'form-control']) !!}
+                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('comment', '内容（必須）') !!}
-                    {!! Form::textarea('comment', $lesson->comment, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
                 </div>
 
                 {!! Form::submit('編集する', ['class' => 'btn btn-primary btn-block']) !!}

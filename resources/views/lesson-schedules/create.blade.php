@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <h1>スケジュール新規登録</h1>
+    <div class="text-center">
+        <h2>スケジュール新規登録</h2>
+    </div>
 
     <div class="row">
-        <div class="col-6">
+        <div class="col-sm-6 offset-sm-3">
             {!! Form::model($lesson_schedule, ['route' => 'lesson-schedules.store']) !!}
                 
                 <div class="form-group">
@@ -58,7 +59,7 @@
                     </select>
                 </div>
 
-                {!! Form::submit('登録する', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('登録する', ['class' => 'btn btn-primary btn-block']) !!}
 
             {!! Form::close() !!}
         </div>

@@ -2,7 +2,7 @@
 
 @section('content')
     
-    <h1>お客様管理</h1>
+    <h2>お客様管理</h2>
     
     {!! Form::open(['route' => 'users.search', 'method' => 'get']) !!}
         <div class="input-group">

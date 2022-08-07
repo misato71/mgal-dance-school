@@ -2,7 +2,7 @@
 
 @section('content')
     
-    <h1>予約一覧</h1>
+    <h2>予約管理</h2>
     <p>こんにちは、{{ Auth::user()->name }}さん</p>
     
     @if (count($reservation_lists) > 0)

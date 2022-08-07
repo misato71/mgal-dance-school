@@ -2,7 +2,7 @@
 
 @section('content')
     
-    <h1>予約一覧</h1>
+    <h2>予約管理</h2>
     
     {!! Form::open(['route' => 'reservations.search', 'method' => 'get']) !!}
         <div class="input-group">
@@ -25,6 +25,7 @@
                         <th>ステータス</th>
                         <th>お客様id</th>
                         <th>お客様名前</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,7 @@
                         @endif
                         <td>{{ $reservation_list->user->id }}</td>
                         <td>{{ $reservation_list->user->name }}</td>
+                        <td>{!! link_to_route('reservation-lists.show', '予約詳細', ['reservation_list' => $reservation_list->id], ['class' => 'btn btn-success']) !!}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -45,5 +47,8 @@
         {{-- ページネーションのリンク --}}
         {{ $lesson_schedules->links() }}
     @endif
+    
+    {{-- 予約新規追加リンク --}}
+    {!! link_to_route('reservation-lists.create', '予約新規追加', [], ['class' => 'btn btn-primary']) !!}
     
 @endsection

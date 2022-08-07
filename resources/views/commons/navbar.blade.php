@@ -12,7 +12,7 @@
             <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item">{!! link_to_route('lesson-schedules.index', 'スケジュール', [],  ['class' => 'nav-link']) !!}</li>
-                    <li class="nav-item">{!! link_to_route('reservations', '予約一覧', [],  ['class' => 'nav-link']) !!}</li>
+                    <li class="nav-item">{!! link_to_route('reservations', '予約管理', [],  ['class' => 'nav-link']) !!}</li>
                     @if (Auth::user()->is_admin == 1)
                         <li class="nav-item">{!! link_to_route('lessons.index', 'レッスン', [], ['class' => 'nav-link']) !!}</li>
                         <li class="nav-item">{!! link_to_route('instructors.index', '講師', [], ['class' => 'nav-link']) !!}</li>

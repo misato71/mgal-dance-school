@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1>スタジオ一覧</h1>
+    <h2>スタジオ一覧</h2>
 
     @if (count($studios) > 0)
         <table class="table table-striped">
@@ -10,6 +10,7 @@
                 <tr>
                     <th>スタジオ名</th>
                     <th>画像</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -17,6 +18,7 @@
                 <tr>
                     <td>{{ $studio->name }}</td>
                     <td><img src="{{ asset('uploads')}}/{{$studio->image}}" alt="{{ $studio->image }}" class="studio-image"></td>
+                    <td>{!! link_to_route('studios.show', '詳細', ['studio' => $studio->id], ['class' => 'btn btn-success']) !!}</td>
                 </tr>
                 @endforeach
             </tbody>

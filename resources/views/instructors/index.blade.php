@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1>講師一覧</h1>
+    <h2>講師一覧</h2>
 
     @if (count($instructors) > 0)
         <table class="table table-striped">
@@ -10,6 +10,7 @@
                 <tr>
                     <th>講師名</th>
                     <th>画像</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -17,6 +18,7 @@
                 <tr>
                     <td>{{ $instructor->name }}</td>
                     <td><img src="{{ asset('uploads')}}/{{$instructor->image}}" alt="{{ $instructor->image }}" class="instructor-icon"></td>
+                    <td>{!! link_to_route('instructors.show', '詳細', ['instructor' => $instructor->id], ['class' => 'btn btn-success']) !!}</td>
                 </tr>
                 @endforeach
             </tbody>

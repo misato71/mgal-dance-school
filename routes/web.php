@@ -39,6 +39,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('reservations/{id}/show', 'ReservationsController@show')->name('reservations.show');
     Route::put('reservations/update', 'ReservationsController@update')->name('reservations.update');
     
+    // 管理者からの予約
+    Route::get('reservation-lists/search', 'ReservationListsController@search')->name('reservation-lists.search');
+    Route::resource('reservation-lists', 'ReservationListsController');
     
     // お客様情報
     Route::get('users/search', 'UsersController@search')->name('users.search');

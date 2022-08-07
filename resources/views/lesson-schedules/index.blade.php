@@ -2,10 +2,14 @@
 
 @section('content')
 
-    <h1>スケジュール一覧</h1>
+    <h2>スケジュール一覧</h2>
 
     @if (count($lesson_schedules) > 0)
-        <h2>{{ $year }} 年{{ $month }}月～</h2>
+        @if (Auth::user()->is_admin == 1)
+            {{-- 予約新規追加リンク --}}
+            {!! link_to_route('reservation-lists.create', '予約新規追加', [], ['class' => 'btn btn-secondary']) !!}
+        @endif
+        <h3>{{ $year }} 年{{ $month }}月～</h3>
         
         @if ($next_month == null)
             {!! link_to_route('lesson-schedules.index', '今月', [], ['class' => 'btn btn-link']) !!}

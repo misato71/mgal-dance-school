@@ -2,7 +2,7 @@
 
 @section('content')
     
-    <h1>スケジュール詳細</h1>
+    <h2>スケジュール詳細</h2>
     
     <div class="center">
         <div class="card">
@@ -22,7 +22,6 @@
                 <img src="{{ asset('uploads')}}/{{$lesson_schedule->studio->image}}" alt="{{ $lesson_schedule->studio->image }}" class="studio-image">
             </div>
         </div>
-        
         @if (Auth::user()->is_admin == 0)
             <?php $exist = ''; ?>
             @foreach (Auth::user()->reservation_lists as $reservation_list)
@@ -33,15 +32,14 @@
                 @endif
             @endforeach
             
-            @if ($lesson_schedule->reservation_limit <= 0 || $exist == true || $lesson_schedule->date <= $today)
+            @if ($lesson_schedule->reservation_limit <= 0 || $exist == true || $lesson_schedule->date < $today)
                 <button type="button" class="btn btn-lg btn-block btn-warning" disabled>受付しておりません</button>
             @elseif ($lesson_schedule->reservation_limit >= 1)
                 {{-- 予約作成ページへのリンク --}}
                 {!! link_to_route('reservations.create', '予約する', ['id' => $lesson_schedule->id], ['class' => 'btn btn-primary btn-lg btn-block']) !!}    
                 
             @endif
-        @endif 
-        
+        @endif
         @if (Auth::user()->is_admin == 1)
             {{-- スケジュール編集フォーム --}}
             {!! link_to_route('lesson-schedules.edit', '編集', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-warning btn-lg btn-block']) !!}

@@ -2,21 +2,16 @@
 
 @section('content')
     <div class="text-center">
-        <h2>講師新規登録</h2>
+        <h1>スタジオ編集</h1>
     </div>
 
     <div class="row">
         <div class="col-sm-6 offset-sm-3">
-            {!! Form::model($instructor, ['route' => 'instructors.store', 'files' => true]) !!}
+            {!! Form::model($studio, ['route' => ['studios.update', $studio->id], 'files' => true, 'method' => 'put']) !!}
             
                 <div class="form-group">
-                    {!! Form::label('name', '講師名（必須）') !!}
+                    {!! Form::label('name', 'スタジオ名（必須）') !!}
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                </div>
-                
-                <div class="form-group">
-                    {!! Form::label('comment', 'コメント（必須）') !!}
-                    {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
@@ -24,7 +19,7 @@
                     {!! Form::file('image', null, ['class' => 'form-control']) !!}
                 </div>
 
-                {!! Form::submit('登録する', ['class' => 'btn btn-primary btn-block']) !!}
+                {!! Form::submit('編集する', ['class' => 'btn btn-primary btn-block']) !!}
 
             {!! Form::close() !!}
         </div>

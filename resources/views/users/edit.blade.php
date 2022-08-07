@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="text-center">
-        <h1>登録情報の変更</h1>
+        <h2>登録情報の変更</h2>
         <p>{{ $user->name }}さんの登録情報</p>
     </div>
 

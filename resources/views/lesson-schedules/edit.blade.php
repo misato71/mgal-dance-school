@@ -11,7 +11,7 @@
 
                 <div class="form-group">
                     {!! Form::label('date', 'レッスン日（必須）') !!}
-                    {!! Form::date('date', $lesson_schedule->date, ['class' => 'form-control']) !!}
+                    {!! Form::date('date', null, ['class' => 'form-control']) !!}
                 </div>
             
                 <div class="form-group">
@@ -26,12 +26,12 @@
                 
                 <div class="form-group">
                     {!! Form::label('start_time', '開始時間（必須）') !!}
-                    {!! Form::time('start_time', $lesson_schedule->start_time, ['class' => 'form-control']) !!}
+                    {!! Form::time('start_time', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('finish_time', '終了時間（必須）') !!}
-                    {!! Form::time('finish_time', $lesson_schedule->finish_time, ['class' => 'form-control']) !!}
+                    {!! Form::time('finish_time', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
@@ -46,7 +46,7 @@
                 
                 <div class="form-group">
                     {!! Form::label('reservation_limit', '予約できる人数（必須）') !!}
-                    {!! Form::text('reservation_limit', $lesson_schedule->reservation_limit, ['class' => 'form-control']) !!}
+                    {!! Form::text('reservation_limit', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">

@@ -2,10 +2,40 @@
 
 @section('content')
     
-    <h2>予約内容</h2>
+    <h2>予約詳細</h2>
     @if ($reservation_list->status == 0)
         <h3>※こちらの予約はキャンセル済みです。</h3>
     @endif
+    <h5><i class="fas fa-user-check"></i>お客様情報</h5>
+    <table class="table table-striped table-bordered">
+        <tbody>
+            <tr>
+                <th>会員ID</th>
+                <td>{{ $reservation_list->user->id }}</td>
+            </tr>
+            <tr>
+                <th>名前</th>
+                <td>{{ $reservation_list->user->name }}</td>
+            </tr>
+            <tr>
+                <th>フリガナ</th>
+                <td>{{ $reservation_list->user->kana_name}}</td>
+            </tr>
+            <tr>
+                <td>電話番号</td>
+                <td>{{ $reservation_list->user->phone }}</td>
+            </tr>
+            <tr>
+                <th>email</th>
+                <td>{{ $reservation_list->user->email }}</td>
+            </tr>
+            <tr>
+                <th>誕生日</th>
+                <td>{{ $reservation_list->user->birthday }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5><i class="far fa-calendar-check"></i>予約内容</h5>
     <div class="center">
         <div class="card">
             <div class="card-header">
@@ -26,7 +56,7 @@
         </div>
         @if ($reservation_list->status == 1)
             {{-- 予約キャンセルページへのリンク --}}
-            {!! Form::open(['route' => ['reservations.update', ['reservation_list' => $reservation_list->id]], 'method' => 'put']) !!}
+            {!! Form::open(['route' => ['reservation-lists.update', ['reservation_list' => $reservation_list->id]], 'method' => 'put']) !!}
                 {!! Form::submit('キャンセルする', ['class' => 'btn btn-danger btn-block']) !!}
             {!! Form::close() !!}
         @elseif ($reservation_list->status == 0)
