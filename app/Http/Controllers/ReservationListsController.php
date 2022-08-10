@@ -11,7 +11,7 @@ class ReservationListsController extends Controller
 {
     public function create() 
     {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             $users = [];
             $lesson_schedules = [];
             $reservation_list = new ReservationList;
@@ -48,7 +48,7 @@ class ReservationListsController extends Controller
         $reservation_list = new ReservationList;
         
         $data = [];
-        if (\Auth::user()->is_admin === 1){
+        if (\Auth::user()->is_admin){
             $data = [
                 'users' => $users,
                 'lesson_schedules' => $lesson_schedules,
@@ -64,7 +64,7 @@ class ReservationListsController extends Controller
     {
         $lesson_schedule = LessonSchedule::findOrFail($request->lesson_schedule_id);
         
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
         
             // 予約枠、reservation_limit = 1、又は1以上は予約ができる
             if ($lesson_schedule->reservation_limit >= 1) {
@@ -94,7 +94,7 @@ class ReservationListsController extends Controller
         // idの値で予約を検索して取得
         $reservation_list = ReservationList::findOrFail($id);
         
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // 予約内容ビューでそれらを表示
             return view('reservation_lists.show', [
                 'reservation_list' => $reservation_list,
@@ -107,7 +107,7 @@ class ReservationListsController extends Controller
         // idの値で予約を検索して取得
         $reservation_list = ReservationList::findOrFail($request->reservation_list);
         
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // 予約をキャンセルのstatus=0に更新
             $reservation_list->status = 0;
             $reservation_list->save();

@@ -14,7 +14,7 @@
                 
             </div>
         </div>
-        @if (Auth::user()->is_admin == 1)
+        @if (Auth::user()->is_admin)
             {{-- レッスン編集フォーム --}}
             {!! link_to_route('lessons.edit', '編集', ['lesson' => $lesson->id], ['class' => 'btn btn-warning btn-lg btn-block']) !!}
             

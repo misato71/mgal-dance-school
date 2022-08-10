@@ -18,7 +18,7 @@ class ReservationsController extends Controller
             // 本日を取得
                 $today = date('Y-m-d');
             // 管理者用予約一覧を取得
-            if ($user->is_admin == 1) {
+            if ($user->is_admin) {
                 // 本日からの予約を取得
                 $lesson_schedules = LessonSchedule::where('date', '>=', $today)->orderby('date')->paginate(1);
                 
@@ -28,7 +28,7 @@ class ReservationsController extends Controller
                 return view('reservation_lists.index', $data);
             
             //ユーザの予約一覧を取得
-            } elseif ($user->is_admin == 0) {
+            } else {
                 // ユーザの投稿の一覧を作成日時の降順で取得
                 $reservation_lists = $user->reservation_lists()->orderBy('created_at', 'desc')->paginate(10);
                 
@@ -63,7 +63,7 @@ class ReservationsController extends Controller
         // 全件取得 +ページネーション
         $lesson_schedules = $query->orderBy('id','desc')->paginate(1);
         
-        if (\Auth::user()->is_admin === 1){
+        if (\Auth::user()->is_admin){
             $data = [
                     'lesson_schedules' => $lesson_schedules,
             ];

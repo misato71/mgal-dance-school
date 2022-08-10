@@ -36,7 +36,7 @@ class LessonsController extends Controller
     // postでlessons/にアクセスされた場合の「新規登録処理」
     public function store(Request $request)
     {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // バリデーション
             $request->validate([
                 'name' => 'required|max:50',
@@ -58,7 +58,7 @@ class LessonsController extends Controller
     
     public function show($id)
     {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
              // idの値でレッスンを検索して取得
             $lesson = Lesson::findOrFail($id);
     
@@ -73,7 +73,7 @@ class LessonsController extends Controller
     
     public function edit($id) 
     {
-       if (\Auth::user()->is_admin === 1) {
+       if (\Auth::user()->is_admin) {
              // idの値でレッスンを検索して取得
             $lesson = Lesson::findOrFail($id);
     
@@ -88,7 +88,7 @@ class LessonsController extends Controller
     
     public function update(Request $request, $id)
     {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // バリデーション
             $request->validate([
                 'name' => 'required|max:50',

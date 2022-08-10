@@ -9,7 +9,7 @@ class UsersController extends Controller
 {
     public function index() {
         $data = [];
-        if (\Auth::user()->is_admin === 1){
+        if (\Auth::user()->is_admin){
             $users = User::all();
             $data = [
                 'users' => $users,
@@ -40,7 +40,7 @@ class UsersController extends Controller
         $users = $query->orderBy('id','desc')->paginate(10);
         
         $data = [];
-        if (\Auth::user()->is_admin === 1){
+        if (\Auth::user()->is_admin){
             $data = [
                 'users' => $users, 
             ];
@@ -52,7 +52,7 @@ class UsersController extends Controller
     
     public function show($id) {
         $data = [];
-        if (\Auth::user()->is_admin === 1){
+        if (\Auth::user()->is_admin){
             $user = User::findOrFail($id);
             $data = [
                 'user' => $user,

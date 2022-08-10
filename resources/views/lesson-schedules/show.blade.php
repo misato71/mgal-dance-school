@@ -40,7 +40,7 @@
                 
             @endif
         @endif
-        @if (Auth::user()->is_admin == 1)
+        @if (Auth::user()->is_admin)
             {{-- スケジュール編集フォーム --}}
             {!! link_to_route('lesson-schedules.edit', '編集', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-warning btn-lg btn-block']) !!}
             

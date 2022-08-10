@@ -14,7 +14,7 @@
                 <img src="{{ Storage::disk('s3')->url('uploads/' . $instructor->image) }}" alt="{{ $instructor->image }}" class="instructor-icon">
             </div>
         </div>
-        @if (Auth::user()->is_admin == 1)
+        @if (Auth::user()->is_admin)
             {{-- レッスン編集フォーム --}}
             {!! link_to_route('instructors.edit', '編集', ['instructor' => $instructor->id], ['class' => 'btn btn-warning btn-lg btn-block']) !!}
             

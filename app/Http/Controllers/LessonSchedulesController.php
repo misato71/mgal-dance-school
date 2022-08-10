@@ -68,7 +68,7 @@ class LessonSchedulesController extends Controller
     
     public function create() 
     {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             $lesson_schedule = new LessonSchedule;
             $lessons = Lesson::all();
             $instructors = Instructor::all();
@@ -88,7 +88,7 @@ class LessonSchedulesController extends Controller
     
     public function store(Request $request)
     {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // バリデーション
             $request->validate([
                 'date' => 'required|date',
@@ -137,7 +137,7 @@ class LessonSchedulesController extends Controller
         $instructors = Instructor::all();
         $studios = Studio::all();
         
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // スケジュール編集ビューでそれらを表示
             return view('lesson-schedules.edit', [
                 'lesson_schedule' => $lesson_schedule,
@@ -155,7 +155,7 @@ class LessonSchedulesController extends Controller
         // idの値でスケジュールを検索して取得
         $lesson_schedule = LessonSchedule::findOrFail($id);
         
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // バリデーション
             $request->validate([
                 'date' => 'required|date',
@@ -185,7 +185,7 @@ class LessonSchedulesController extends Controller
         // idの値でスケジュールを検索して取得
         $lesson_schedule = LessonSchedule::findOrFail($id);
         
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // スケジュールを削除
             $lesson_schedule->delete();
              

@@ -5,7 +5,7 @@
     <h2>スケジュール一覧</h2>
 
     @if (count($lesson_schedules) > 0)
-        @if (Auth::user()->is_admin == 1)
+        @if (Auth::user()->is_admin)
             {{-- 予約新規追加リンク --}}
             {!! link_to_route('reservation-lists.create', '予約新規追加', [], ['class' => 'btn btn-secondary']) !!}
         @endif

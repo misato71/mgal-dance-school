@@ -18,7 +18,7 @@ class StudiosController extends Controller
     }
     
     public function create() {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
         
             $studio = new Studio;
             
@@ -33,7 +33,7 @@ class StudiosController extends Controller
     
     public function store(Request $request)
     {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // バリデーション
             $request->validate([
                 'name' => 'required|max:50',
@@ -71,7 +71,7 @@ class StudiosController extends Controller
     }
     
     public function show($id) {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // idの値でスタジオを検索して取得
             $studio = Studio::findOrFail($id);
             
@@ -85,7 +85,7 @@ class StudiosController extends Controller
     }
     
     public function edit($id) {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // idの値でスタジオを検索して取得
             $studio = Studio::findOrFail($id);
             
@@ -100,7 +100,7 @@ class StudiosController extends Controller
     
     public function update(Request $request, $id)
     {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             // バリデーション
             $request->validate([
                 'name' => 'required|max:50',

@@ -13,7 +13,7 @@
                 <img src="{{ Storage::disk('s3')->url('uploads/' . $studio->image) }}" alt="{{ $studio->image }}" class="studio-image">
             </div>
         </div>
-        @if (Auth::user()->is_admin == 1)
+        @if (Auth::user()->is_admin)
             {{-- レッスン編集フォーム --}}
             {!! link_to_route('studios.edit', '編集', ['studio' => $studio->id], ['class' => 'btn btn-warning btn-lg btn-block']) !!}
             

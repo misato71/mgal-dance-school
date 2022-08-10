@@ -13,12 +13,12 @@
                 @if (Auth::check())
                     <li class="nav-item">{!! link_to_route('lesson-schedules.index', 'スケジュール', [],  ['class' => 'nav-link']) !!}</li>
                     <li class="nav-item">{!! link_to_route('reservations', '予約管理', [],  ['class' => 'nav-link']) !!}</li>
-                    @if (Auth::user()->is_admin == 1)
+                    @if (Auth::user()->is_admin)
                         <li class="nav-item">{!! link_to_route('lessons.index', 'レッスン', [], ['class' => 'nav-link']) !!}</li>
                         <li class="nav-item">{!! link_to_route('instructors.index', '講師', [], ['class' => 'nav-link']) !!}</li>
                         <li class="nav-item">{!! link_to_route('studios.index', 'スタジオ', [], ['class' => 'nav-link']) !!}</li>
                         <li class="nav-item">{!! link_to_route('users.index', 'お客様管理', [], ['class' => 'nav-link']) !!}</li>
-                    @elseif (Auth::user()->is_admin == 0)
+                    @else
                         <li class="nav-item">{!! link_to_route('users.edit', '登録情報変更', ['user' => Auth::user()->id], ['class' => 'nav-link']) !!}</li>
                         <li class="nav-item">{!! link_to_route('password.edit', 'パスワード変更', [], ['class' => 'nav-link']) !!}</li>
                     @endif    
