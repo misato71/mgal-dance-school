@@ -22,7 +22,7 @@ class LessonsController extends Controller
     // getでlessons/createにアクセスされた場合の「新規登録画面表示処理」
     public function create()
     {
-        if (\Auth::user()->is_admin === 1) {
+        if (\Auth::user()->is_admin) {
             $lesson = new Lesson;
     
             // レッスン作成ビューを表示
