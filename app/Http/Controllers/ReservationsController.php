@@ -81,6 +81,7 @@ class ReservationsController extends Controller
         // 二重予約の禁止
         foreach (\Auth::user()->reservation_lists as $reservation_list) {
             if ($reservation_list->lesson_schedule_id == $lesson_schedule->id) {
+                if ($reservation_list->status == 1)
                 $exist = true;
             }
         }
