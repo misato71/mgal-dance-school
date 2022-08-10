@@ -8,6 +8,7 @@ use App\LessonSchedule;
 use App\Lesson;
 use App\Instructor;
 use App\Studio;
+use App\ReservationList;
 
 class LessonSchedulesController extends Controller
 {
@@ -184,8 +185,16 @@ class LessonSchedulesController extends Controller
     {
         // idの値でスケジュールを検索して取得
         $lesson_schedule = LessonSchedule::findOrFail($id);
+        $reservation_lists = ReservationList::all();
         
         if (\Auth::user()->is_admin) {
+            foreach ($reservation_lists as $reservation_list) {
+                if ($lesson_schedule->id == $reservation_list->lesson_schedule_id) {
+                    return redirect('lesson-schedules')
+                    ->with('warning','予約がある為削除はできません！！');
+                }
+            }
+            
             // スケジュールを削除
             $lesson_schedule->delete();
              

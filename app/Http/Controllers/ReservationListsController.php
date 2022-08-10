@@ -123,4 +123,5 @@ class ReservationListsController extends Controller
         
         return back();
     }
+    
 }

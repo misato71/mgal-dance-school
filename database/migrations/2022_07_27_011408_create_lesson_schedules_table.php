@@ -25,9 +25,9 @@ class CreateLessonSchedulesTable extends Migration
             $table->timestamps();
             
             // 外部キー制約
-            $table->foreign('lesson_id')->references('id')->on('lessons');
-            $table->foreign('studio_id')->references('id')->on('studios');
-            $table->foreign('instructor_id')->references('id')->on('instructors');
+            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
+            $table->foreign('studio_id')->references('id')->on('studios')->onDelete('cascade');
+            $table->foreign('instructor_id')->references('id')->on('instructors')->onDelete('cascade');
             
         });
     }

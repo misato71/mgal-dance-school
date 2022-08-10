@@ -46,9 +46,9 @@
             {!! link_to_route('lesson-schedules.edit', '編集', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-warning btn-lg btn-block']) !!}
             
             {{-- スケジュール削除フォーム --}}
-            <!--{!! Form::model($lesson_schedule, ['route' => ['lesson-schedules.destroy', $lesson_schedule->id], 'method' => 'delete']) !!}-->
-            <!--    {!! Form::submit('削除', ['class' => 'btn btn-danger btn-block']) !!}-->
-            <!--{!! Form::close() !!}-->
+            {!! Form::model($lesson_schedule, ['route' => ['lesson-schedules.destroy', $lesson_schedule->id], 'method' => 'delete']) !!}
+                {!! Form::submit('削除', ['class' => 'btn btn-danger btn-lg btn-block']) !!}
+            {!! Form::close() !!}
         @endif 
         {{-- もどるのリンク --}}
         {!! link_to_route('lesson-schedules.index', 'もどる', [], ['class' => 'btn btn-secondary btn-lg btn-block']) !!}
