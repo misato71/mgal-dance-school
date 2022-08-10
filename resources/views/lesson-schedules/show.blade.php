@@ -22,13 +22,14 @@
                 <img src="{{ Storage::disk('s3')->url('uploads/' . $lesson_schedule->studio->image) }}" alt="{{ $lesson_schedule->studio->image }}" class="studio-image">
             </div>
         </div>
-        @if (Auth::user()->is_admin == 0)
+        @if (Auth::user()->is_admin == false)
             <?php $exist = ''; ?>
             @foreach (Auth::user()->reservation_lists as $reservation_list)
                 @if ($reservation_list->lesson_schedule_id == $lesson_schedule->id)
-                    <h3>※こちらの予約は予約済みです</h3>
-                    <?php $exist = true; ?>
-                
+                    @if ($reservation_list->status == 1)
+                        <h3>※こちらの予約は予約済みです</h3>
+                        <?php $exist = true; ?>
+                    @endif
                 @endif
             @endforeach
             
