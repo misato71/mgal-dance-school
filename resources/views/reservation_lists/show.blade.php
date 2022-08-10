@@ -48,10 +48,10 @@
             <div class="card-body">
                 <p>{{ $reservation_list->lesson_schedule->lesson->comment }}</p>
                 <h5><i class="fas fa-user-friends"></i>{{ $reservation_list->lesson_schedule->instructor->name }}</h5>
-                <img src="{{ asset('uploads')}}/{{$reservation_list->lesson_schedule->instructor->image}}" alt="{{ $reservation_list->lesson_schedule->instructor->image }}" class="instructor-icon">
+                <img src="{{ Storage::disk('s3')->url('uploads/' . $reservation_list->lesson_schedule->instructor->image) }}" alt="{{ $reservation_list->lesson_schedule->instructor->image }}" class="instructor-icon">
                 <p>{{ $reservation_list->lesson_schedule->instructor->comment }}</p>
                 <h5><i class="far fa-building"></i>{{ $reservation_list->lesson_schedule->studio->name }}</h5>
-                <img src="{{ asset('uploads')}}/{{$reservation_list->lesson_schedule->studio->image}}" alt="{{ $reservation_list->lesson_schedule->studio->image }}" class="studio-image">
+                <img src="{{ Storage::disk('s3')->url('uploads/' . $reservation_list->lesson_schedule->studio->image) }}" alt="{{ $reservation_list->lesson_schedule->studio->image }}" class="studio-image">
             </div>
         </div>
         @if ($reservation_list->status == 1)

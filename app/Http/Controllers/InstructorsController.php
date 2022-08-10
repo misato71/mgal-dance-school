@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 use App\Instructor;
 
 class InstructorsController extends Controller
@@ -48,17 +48,15 @@ class InstructorsController extends Controller
             
             // 画像のアップロード
             if($file){
-                // 現在時刻ともともとのファイル名を組み合わせてランダムなファイル名作成
-                $image = time() . $file->getClientOriginalName();
-                // アップロードするフォルダ名取得
-                $target_path = public_path('uploads/');
-                // アップロード処理
-                $file->move($target_path, $image);
+                // S3用
+                $path = Storage::disk('s3')->putFile('/uploads', $file, 'public');
+                // パスから、最後の「ファイル名.拡張子」の部分だけ取得
+                $image = basename($path);
             }else{
                 // 画像が選択されていなければ空文字をセット
                 $image = '';
             }
-        
+            
             // 講師を登録
             $instructor = new Instructor;
             $instructor->name = $request->name;
@@ -119,12 +117,10 @@ class InstructorsController extends Controller
             
             // 画像のアップロード
             if($file){
-                // 現在時刻ともともとのファイル名を組み合わせてランダムなファイル名作成
-                $image = time() . $file->getClientOriginalName();
-                // アップロードするフォルダ名取得
-                $target_path = public_path('uploads/');
-                // アップロード処理
-                $file->move($target_path, $image);
+                // S3用
+                $path = Storage::disk('s3')->putFile('/uploads', $file, 'public');
+                // パスから、最後の「ファイル名.拡張子」の部分だけ取得
+                $image = basename($path);
             }else{
                 // 画像が選択されていなければ空文字をセット
                 $image = '';

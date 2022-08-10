@@ -17,7 +17,7 @@
                 @foreach ($instructors as $instructor)
                 <tr>
                     <td>{{ $instructor->name }}</td>
-                    <td><img src="{{ asset('uploads')}}/{{$instructor->image}}" alt="{{ $instructor->image }}" class="instructor-icon"></td>
+                    <td><img src="{{ Storage::disk('s3')->url('uploads/' . $instructor->image) }}" alt="{{ $instructor->image }}" class="instructor-icon"></td>
                     <td>{!! link_to_route('instructors.show', '詳細', ['instructor' => $instructor->id], ['class' => 'btn btn-success']) !!}</td>
                 </tr>
                 @endforeach

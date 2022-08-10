@@ -10,7 +10,7 @@
                 
             </div>
             <div class="card-body">
-                <img src="{{ asset('uploads')}}/{{$studio->image}}" alt="{{ $studio->image }}" class="studio-image">
+                <img src="{{ Storage::disk('s3')->url('uploads/' . $studio->image) }}" alt="{{ $studio->image }}" class="studio-image">
             </div>
         </div>
         @if (Auth::user()->is_admin == 1)
