@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content') 
+    <div class="text-center">
+        <h2>パスワード変更</h2>
+    </div>
+
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
 

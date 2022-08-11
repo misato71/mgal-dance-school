@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="text-center">
-        <h1>講師編集</h1>
+        <h2>講師編集</h2>
     </div>
 
     <div class="row">
