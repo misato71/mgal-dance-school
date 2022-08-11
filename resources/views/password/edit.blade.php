@@ -10,17 +10,17 @@
 
             {!! Form::open(['route'=>'password.change','method'=>'put']) !!}
                 <div class="form-group">
-                    {!! Form::label('current_password','以前のパスワード') !!}
+                    {!! Form::label('current_password','以前のPassword') !!}
                     {!! Form::password('current_password',['class'=>'form-control']) !!}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('new_password','新しいパスワード') !!}
+                    {!! Form::label('new_password','新しいPassword（8文字以上）') !!}
                     {!! Form::password('new_password',['class'=>'form-control']) !!}
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('new_password_confirmation','パスワードの確認') !!}
+                    {!! Form::label('new_password_confirmation','Password 確認') !!}
                     {!! Form::password('new_password_confirmation',['class'=>'form-control']) !!}
                 </div>
 

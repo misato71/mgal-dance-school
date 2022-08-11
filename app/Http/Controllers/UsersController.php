@@ -80,13 +80,13 @@ class UsersController extends Controller
     public function update(Request $request, $id) {
         // バリデーション
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'kana_name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:100'],
+            'kana_name' => ['required', 'string', 'max:100'],
             'birthday' => ['required', 'string', 'date'],
-            'phone' => ['required', 'string', 'max:20'],
-            'zipcode' => ['required', 'string', 'max:10'],
-            'address' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:11', 'min:10'],
+            'zipcode' => ['required', 'string', 'max:7', 'min:7'],
+            'address' => ['required', 'string', 'max:100'],
         ]);
         
         $user = User::findOrFail($id);

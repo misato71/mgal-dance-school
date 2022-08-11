@@ -92,10 +92,13 @@ class LessonSchedulesController extends Controller
         if (\Auth::user()->is_admin) {
             // バリデーション
             $request->validate([
+                'lesson_id' => 'required|integer',
+                'studio_id' => 'required|integer',
+                'instructor_id' => 'required|integer',
                 'date' => 'required|date',
-                'start_time' => 'required|max:10',
-                'finish_time' => 'required|max:10',
-                'reservation_limit' => 'required|integer',
+                'start_time' => 'required|string|max:5',
+                'finish_time' => 'required|string|max:5',
+                'reservation_limit' => 'required|integer|max:100',
             ]);
     
             // スケジュールを登録
@@ -159,10 +162,13 @@ class LessonSchedulesController extends Controller
         if (\Auth::user()->is_admin) {
             // バリデーション
             $request->validate([
+                'lesson_id' => 'required|integer',
+                'studio_id' => 'required|integer',
+                'instructor_id' => 'required|integer',
                 'date' => 'required|date',
-                'start_time' => 'required|max:10',
-                'finish_time' => 'required|max:10',
-                'reservation_limit' => 'required|integer',
+                'start_time' => 'required|string|max:5',
+                'finish_time' => 'required|string|max:5',
+                'reservation_limit' => 'required|integer|max:100',
             ]);
     
             // スケジュールを更新

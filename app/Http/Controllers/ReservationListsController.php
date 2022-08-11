@@ -63,26 +63,42 @@ class ReservationListsController extends Controller
     public function store(Request $request)
     {
         $lesson_schedule = LessonSchedule::findOrFail($request->lesson_schedule_id);
+        $user = User::findOrFail($request->user_id);
         
         if (\Auth::user()->is_admin) {
-        
-            // 予約枠、reservation_limit = 1、又は1以上は予約ができる
-            if ($lesson_schedule->reservation_limit >= 1) {
-                $lesson_schedule->reservation_limit = $lesson_schedule->reservation_limit - 1;
-                $lesson_schedule->save();
-                
-                $reservation_list = new ReservationList;
-                $reservation_list->lesson_schedule_id = $request->lesson_schedule_id;
-                $reservation_list->user_id = $request->user_id;
-                $reservation_list->status = 1;
-                $reservation_list->save();
-                
-                // 予約一覧のURLへリダイレクト
-                return redirect('reservations');
-                
-            // 予約枠、reservation_limit = 0、又は0以下は予約はできないようにする
-            } elseif ($lesson_schedule->reservation_limit <= 0) {
-                return back();
+            $exist = '';
+            // 二重予約の禁止
+            foreach ($user->reservation_lists as $reservation_list) {
+                if ($reservation_list->lesson_schedule_id == $lesson_schedule->id) {
+                    if ($reservation_list->status == 1)
+                    $exist = true;
+                }
+            }
+            
+            // すでに予約済みだったら、前のページへバック
+            if ($exist == true) {
+                return back()
+                ->with('warning','すでに予約済みです！！');
+            } else {
+                // 予約してない場合
+                // 予約枠、reservation_limit = 1、又は1以上は予約ができる
+                if ($lesson_schedule->reservation_limit >= 1) {
+                    $lesson_schedule->reservation_limit = $lesson_schedule->reservation_limit - 1;
+                    $lesson_schedule->save();
+                    
+                    $reservation_list = new ReservationList;
+                    $reservation_list->lesson_schedule_id = $request->lesson_schedule_id;
+                    $reservation_list->user_id = $request->user_id;
+                    $reservation_list->status = 1;
+                    $reservation_list->save();
+                    
+                    // 予約一覧のURLへリダイレクト
+                    return redirect('reservations');
+                    
+                // 予約枠、reservation_limit = 0、又は0以下は予約はできないようにする
+                } elseif ($lesson_schedule->reservation_limit <= 0) {
+                    return back();
+                }
             }
         }
         
