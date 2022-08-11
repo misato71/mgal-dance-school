@@ -17,7 +17,6 @@
                 @foreach ($studios as $studio)
                 <tr>
                     <td>{{ $studio->name }}</td>
-                    <!--<td><img src="{{ asset('uploads')}}/{{$studio->image}}" alt="{{ $studio->image }}" class="studio-image"></td>-->
                     <td><img src="{{ Storage::disk('s3')->url('uploads/' . $studio->image) }}" alt="{{ $studio->image }}" class="studio-image"></td>
                     <td>{!! link_to_route('studios.show', '詳細', ['studio' => $studio->id], ['class' => 'btn btn-success']) !!}</td>
                 </tr>

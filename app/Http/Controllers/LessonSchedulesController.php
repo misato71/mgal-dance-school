@@ -196,8 +196,14 @@ class LessonSchedulesController extends Controller
         if (\Auth::user()->is_admin) {
             foreach ($reservation_lists as $reservation_list) {
                 if ($lesson_schedule->id == $reservation_list->lesson_schedule_id) {
-                    return redirect('lesson-schedules')
-                    ->with('warning','予約がある為削除はできません！！');
+                    if ($reservation_list->status == 1) {
+                        return redirect('lesson-schedules')
+                        ->with('warning','予約がある為削除はできません！！');
+                    } elseif ($reservation_list->status == 0) {
+                        // キャンセル済みの場合、スケジュールと予約リストから削除
+                        $reservation_list->delete();
+                        $lesson_schedule->delete();
+                    }
                 }
             }
             

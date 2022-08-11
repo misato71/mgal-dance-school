@@ -17,7 +17,7 @@
                 <div class="form-group">
                     {!! Form::label('image', '画像') !!}
                     {!! Form::file('image', null, ['class' => 'form-control']) !!}
-                </div>
+                </div
 
                 {!! Form::submit('登録する', ['class' => 'btn btn-primary btn-block']) !!}
 

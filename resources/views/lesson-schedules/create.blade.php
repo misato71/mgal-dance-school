@@ -19,7 +19,7 @@
                     <select name="lesson_id" class="custom-select form-control">
                      <option value="lesson_id">選択してください</option>
                         @foreach($lessons as $lesson)
-                            <option value="{{ $lesson->id }}">{{ $lesson->name }}</option>
+                            <option value="{{ $lesson->id }}" @if (old('lesson_id') == $lesson->id) selected @endif>{{ $lesson->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -39,7 +39,7 @@
                     <select name="instructor_id" class="custom-select form-control">
                      <option value="instructor_id">選択してください</option>
                         @foreach($instructors as $instructor)
-                            <option value="{{ $instructor->id }}">{{ $instructor->name }}</option>
+                            <option value="{{ $instructor->id }}" @if (old('instructor_id') == $instructor->id) selected @endif>{{ $instructor->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -54,7 +54,7 @@
                     <select name="studio_id" class="custom-select form-control">
                      <option value="studio_id">選択してください</option>
                         @foreach($studios as $studio)
-                            <option value="{{ $studio->id }}">{{ $studio->name }}</option>
+                            <option value="{{ $studio->id }}" @if (old('studio_id') == $studio->id) selected @endif>{{ $studio->name }}</option>
                         @endforeach
                     </select>
                 </div>
