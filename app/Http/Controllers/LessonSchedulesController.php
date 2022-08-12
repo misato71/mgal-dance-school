@@ -67,6 +67,44 @@ class LessonSchedulesController extends Controller
         ]);
     }
     
+    public function search(Request $request) {
+        //バリデーション
+        $request->validate([
+            'date' => ['date'],
+        ]);
+        // キーワードを受け取り
+        $keyword = $request->input('keyword');
+        // クエリ生成
+        $query = LessonSchedule::query();
+        
+         //もしキーワードがあったら
+        if(!empty($keyword)) {
+            $query->where('date','like','%'.$keyword.'%');
+        }
+        
+        // 全件取得 +ページネーション
+        $lesson_schedules = $query->orderBy('id','desc')->paginate(10);
+        
+        // 本日を取得
+        $today = date("Y-m-d");
+        // 今年を取得
+        $year = date("Y");
+        // 今月を取得
+        $month = date("m");
+        
+        $next_month = null;
+        
+        $data = [
+            'lesson_schedules' => $lesson_schedules,
+            'today' => $today,
+            'year' => $year,
+            'month' => $month,
+            'next_month' => $next_month,
+        ];
+        return view('lesson-schedules.index', $data);
+       
+    }
+    
     public function create() 
     {
         if (\Auth::user()->is_admin) {

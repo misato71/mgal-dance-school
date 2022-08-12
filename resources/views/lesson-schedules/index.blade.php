@@ -3,12 +3,16 @@
 @section('content')
 
     <h2>スケジュール一覧</h2>
+    
+    {!! Form::open(['route' => 'lesson-schedules.search', 'method' => 'get']) !!}
+        <div class="input-group">
+            <input type="date" class="form-control" placeholder="レッスン日を入力" name="keyword">
+            <button class="btn btn-outline-success" type="submit" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
+        </div>
+    {!! Form::close() !!}
 
     @if (count($lesson_schedules) > 0)
-        @if (Auth::user()->is_admin)
-            {{-- 予約新規追加リンク --}}
-            {!! link_to_route('reservation-lists.create', '予約新規追加', [], ['class' => 'btn btn-secondary']) !!}
-        @endif
+        
         <h3>{{ $year }} 年{{ $month }}月～</h3>
         
         @if ($next_month == null)
@@ -47,11 +51,21 @@
         </table>
         {{-- ページネーションのリンク --}}
         {{ $lesson_schedules->links() }}
+    @else
+        <div class="text-center">
+        <h3>該当するレッスンが見つかりませんでした</h3>
+        </div>
+        {{-- もどるのリンク --}}
+        {!! link_to_route('lesson-schedules.index', 'もどる', [], ['class' => 'btn btn-secondary btn-lg btn-block']) !!}
     @endif
     
-    @if (Auth::user()->is_admin == 1)
+    @if (Auth::user()->is_admin)
         {{-- スケジュール作成ページへのリンク --}}
         {!! link_to_route('lesson-schedules.create', 'スケジュール新規登録', [], ['class' => 'btn btn-primary']) !!}
+    
+        {{-- 予約新規追加リンク --}}
+        {!! link_to_route('reservation-lists.create', '予約新規追加', [], ['class' => 'btn btn-dark']) !!}
+        
     @endif
     
 @endsection
