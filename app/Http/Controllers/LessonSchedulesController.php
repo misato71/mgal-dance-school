@@ -80,29 +80,29 @@ class LessonSchedulesController extends Controller
          //もしキーワードがあったら
         if(!empty($keyword)) {
             $query->where('date','like','%'.$keyword.'%');
+            // 全件取得 +ページネーション
+            $lesson_schedules = $query->orderBy('id','desc')->paginate(10);
+        
+            // 本日を取得
+            $today = date("Y-m-d");
+            // 今年を取得
+            $year = date("Y");
+            // 今月を取得
+            $month = date("m");
+            
+            $next_month = null;
+            
+            $data = [
+                'lesson_schedules' => $lesson_schedules,
+                'today' => $today,
+                'year' => $year,
+                'month' => $month,
+                'next_month' => $next_month,
+            ];
+            return view('lesson-schedules.index', $data);
+        } else {
+            return back();
         }
-        
-        // 全件取得 +ページネーション
-        $lesson_schedules = $query->orderBy('id','desc')->paginate(10);
-        
-        // 本日を取得
-        $today = date("Y-m-d");
-        // 今年を取得
-        $year = date("Y");
-        // 今月を取得
-        $month = date("m");
-        
-        $next_month = null;
-        
-        $data = [
-            'lesson_schedules' => $lesson_schedules,
-            'today' => $today,
-            'year' => $year,
-            'month' => $month,
-            'next_month' => $next_month,
-        ];
-        return view('lesson-schedules.index', $data);
-       
     }
     
     public function create() 
@@ -133,10 +133,10 @@ class LessonSchedulesController extends Controller
                 'lesson_id' => 'required|integer',
                 'studio_id' => 'required|integer',
                 'instructor_id' => 'required|integer',
-                'date' => 'required|date',
+                'date' => 'required|date|after:yesterday',
                 'start_time' => 'required|string|max:5',
-                'finish_time' => 'required|string|max:5',
-                'reservation_limit' => 'required|integer|max:100',
+                'finish_time' => 'required|string|max:5|after:start_time',
+                'reservation_limit' => 'required|integer|min:0|max:100',
             ]);
     
             // スケジュールを登録
@@ -203,10 +203,10 @@ class LessonSchedulesController extends Controller
                 'lesson_id' => 'required|integer',
                 'studio_id' => 'required|integer',
                 'instructor_id' => 'required|integer',
-                'date' => 'required|date',
+                'date' => 'required|date|after:yesterday',
                 'start_time' => 'required|string|max:5',
-                'finish_time' => 'required|string|max:5',
-                'reservation_limit' => 'required|integer|max:100',
+                'finish_time' => 'required|string|max:5|after:start_time',
+                'reservation_limit' => 'required|integer|min:0|max:100',
             ]);
     
             // スケジュールを更新

@@ -14,10 +14,10 @@
                 </p>
             </div>
             <div class="card-body">
-                <p>{{ $lesson_schedule->lesson->comment }}</p>
+                <p class="mb-0">{!! nl2br(e($lesson_schedule->lesson->comment)) !!}</p>
                 <h5><i class="fas fa-user-friends"></i>{{ $lesson_schedule->instructor->name }}</h5>
                 <img src="{{ Storage::disk('s3')->url('uploads/' . $lesson_schedule->instructor->image) }}" alt="{{ $lesson_schedule->instructor->image }}" class="instructor-icon">
-                <p>{{ $lesson_schedule->instructor->comment }}</p>
+                <p class="mb-0">{!! nl2br(e($lesson_schedule->instructor->comment)) !!}</p>
                 <h5><i class="far fa-building"></i>{{ $lesson_schedule->studio->name }}</h5>
                 <img src="{{ Storage::disk('s3')->url('uploads/' . $lesson_schedule->studio->image) }}" alt="{{ $lesson_schedule->studio->image }}" class="studio-image">
             </div>

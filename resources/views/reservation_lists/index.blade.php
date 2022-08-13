@@ -46,6 +46,12 @@
         @endforeach
         {{-- ページネーションのリンク --}}
         {{ $lesson_schedules->links() }}
+    @else
+        <div class="text-center">
+            <h3>予約がありません</h3>
+        </div>
+        {{-- もどるのリンク --}}
+        {!! link_to_route('lesson-schedules.index', 'もどる', [], ['class' => 'btn btn-secondary btn-lg btn-block']) !!}
     @endif
     
     {{-- 予約新規追加リンク --}}

@@ -53,7 +53,7 @@
         {{ $lesson_schedules->links() }}
     @else
         <div class="text-center">
-        <h3>該当するレッスンが見つかりませんでした</h3>
+            <h3>該当するスケジュールが見つかりませんでした</h3>
         </div>
         {{-- もどるのリンク --}}
         {!! link_to_route('lesson-schedules.index', 'もどる', [], ['class' => 'btn btn-secondary btn-lg btn-block']) !!}

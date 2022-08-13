@@ -27,7 +27,7 @@ class ChangePasswordController extends Controller
         if(!password_verify($request->current_password,$user->password))
         {
             return redirect('/password/change')
-                ->with('warning','パスワードが違います');
+                ->with('warning','以前のPasswordは必須です。');
         }
 
         //新規パスワードの確認

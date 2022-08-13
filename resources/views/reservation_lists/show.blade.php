@@ -46,10 +46,10 @@
                 </p>
             </div>
             <div class="card-body">
-                <p>{{ $reservation_list->lesson_schedule->lesson->comment }}</p>
+                <p class="mb-0">{!! nl2br(e($reservation_list->lesson_schedule->lesson->comment)) !!}</p>
                 <h5><i class="fas fa-user-friends"></i>{{ $reservation_list->lesson_schedule->instructor->name }}</h5>
                 <img src="{{ Storage::disk('s3')->url('uploads/' . $reservation_list->lesson_schedule->instructor->image) }}" alt="{{ $reservation_list->lesson_schedule->instructor->image }}" class="instructor-icon">
-                <p>{{ $reservation_list->lesson_schedule->instructor->comment }}</p>
+                <p class="mb-0">{!! nl2br(e($reservation_list->lesson_schedule->instructor->comment)) !!}</p>
                 <h5><i class="far fa-building"></i>{{ $reservation_list->lesson_schedule->studio->name }}</h5>
                 <img src="{{ Storage::disk('s3')->url('uploads/' . $reservation_list->lesson_schedule->studio->image) }}" alt="{{ $reservation_list->lesson_schedule->studio->image }}" class="studio-image">
             </div>
@@ -57,13 +57,13 @@
         @if ($reservation_list->status == 1)
             {{-- 予約キャンセルページへのリンク --}}
             {!! Form::open(['route' => ['reservation-lists.update', ['reservation_list' => $reservation_list->id]], 'method' => 'put']) !!}
-                {!! Form::submit('キャンセルする', ['class' => 'btn btn-danger btn-block']) !!}
+                {!! Form::submit('キャンセルする', ['class' => 'btn btn-danger btn-lg btn-block']) !!}
             {!! Form::close() !!}
         @elseif ($reservation_list->status == 0)
             <button type="button" class="btn btn-lg btn-block btn-warning" disabled>こちらの予約はキャンセル済み</button>
         @endif
         {{-- もどるのリンク --}}
-        {!! link_to_route('reservations', 'もどる', [], ['class' => 'btn btn-secondary btn-block']) !!}
+        {!! link_to_route('reservations', 'もどる', [], ['class' => 'btn btn-secondary btn-lg btn-block']) !!}
     </div>
         
 @endsection

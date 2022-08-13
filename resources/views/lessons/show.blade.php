@@ -10,8 +10,7 @@
                 
             </div>
             <div class="card-body">
-                <p>{{ $lesson->comment }}</p>
-                
+                <p class="mb-0">{!! nl2br(e($lesson->comment)) !!}</p>
             </div>
         </div>
         @if (Auth::user()->is_admin)

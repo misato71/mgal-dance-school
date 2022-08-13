@@ -10,7 +10,7 @@
                 
             </div>
             <div class="card-body">
-                <p>{{ $instructor->comment }}</p>
+                <p class="mb-0">{!! nl2br(e($instructor->comment)) !!}</p>
                 <img src="{{ Storage::disk('s3')->url('uploads/' . $instructor->image) }}" alt="{{ $instructor->image }}" class="instructor-icon">
             </div>
         </div>

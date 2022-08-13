@@ -36,6 +36,12 @@
         </table>
         {{-- ページネーションのリンク --}}
         {{ $reservation_lists->links() }}
+    @else
+        <div class="text-center">
+            <h3>予約がありません</h3>
+        </div>
+        {{-- もどるのリンク --}}
+        {!! link_to_route('lesson-schedules.index', 'ホーム', [], ['class' => 'btn btn-secondary btn-lg btn-block']) !!}
     @endif
     
 @endsection

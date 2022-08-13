@@ -16,10 +16,10 @@
                 </p>
             </div>
             <div class="card-body">
-                <p>{{ $reservation_list->lesson_schedule->lesson->comment }}</p>
+                <p class="mb-0">{!! nl2br(e($reservation_list->lesson_schedule->lesson->comment)) !!}</p>
                 <h5><i class="fas fa-user-friends"></i>{{ $reservation_list->lesson_schedule->instructor->name }}</h5>
                 <img src="{{ Storage::disk('s3')->url('uploads/' . $reservation_list->lesson_schedule->instructor->image) }}" alt="{{ $reservation_list->lesson_schedule->instructor->image }}" class="instructor-icon">
-                <p>{{ $reservation_list->lesson_schedule->instructor->comment }}</p>
+                <p class="mb-0">{!! nl2br(e($reservation_list->lesson_schedule->instructor->comment)) !!}</p>
                 <h5><i class="far fa-building"></i>{{ $reservation_list->lesson_schedule->studio->name }}</h5>
                 <img src="{{ Storage::disk('s3')->url('uploads/' . $reservation_list->lesson_schedule->studio->image) }}" alt="{{ $reservation_list->lesson_schedule->studio->image }}" class="studio-image">
             </div>

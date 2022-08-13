@@ -58,19 +58,21 @@ class ReservationsController extends Controller
          //もしキーワードがあったら
         if(!empty($keyword)) {
             $query->where('date','like','%'.$keyword.'%');
+        
+            // 全件取得 +ページネーション
+            $lesson_schedules = $query->orderBy('id','desc')->paginate(1);
+            
+            if (\Auth::user()->is_admin){
+                $data = [
+                        'lesson_schedules' => $lesson_schedules,
+                ];
+                return view('reservation_lists.index', $data);
+            } else {
+                return back();
+            }
+        } else {
+            return back();
         }
-        
-        // 全件取得 +ページネーション
-        $lesson_schedules = $query->orderBy('id','desc')->paginate(1);
-        
-        if (\Auth::user()->is_admin){
-            $data = [
-                    'lesson_schedules' => $lesson_schedules,
-            ];
-            return view('reservation_lists.index', $data);
-        }
-        
-        return back();
     }
     
     public function create($id) 

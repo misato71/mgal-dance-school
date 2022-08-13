@@ -6,6 +6,6 @@
         <h3>登録完了</h3>
     
     {{-- ホームのリンク --}}
-    {!! link_to_route('lesson-schedules.index', 'ホームへ', [], ['class' => 'btn btn-secondary']) !!}
+    {!! link_to_route('lesson-schedules.index', 'ホームへ', [], ['class' => 'btn btn-block btn-lg btn-outline-success']) !!}
     </div>
 @endsection

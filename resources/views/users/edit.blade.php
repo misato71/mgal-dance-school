@@ -12,37 +12,37 @@
             {!! Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'put']) !!}
                 <div class="form-group">
                     {!! Form::label('email', 'Email') !!}
-                    {!! Form::email('email', $user->email, ['class' => 'form-control']) !!}
+                    {!! Form::email('email', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('name', 'お名前') !!}
-                    {!! Form::text('name', $user->name, ['class' => 'form-control']) !!}
+                    {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('kana_name', 'フリガナ') !!}
-                    {!! Form::text('kana_name', $user->kana_name, ['class' => 'form-control']) !!}
+                    {!! Form::text('kana_name', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('birthday', 'お誕生日') !!}
-                    {!! Form::date('birthday', $user->birthday, ['class' => 'form-control']) !!}
+                    {!! Form::date('birthday', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('phone', '電話番号（半角数字、ハイフンなし）') !!}
-                    {!! Form::text('phone', $user->phone, ['class' => 'form-control']) !!}
+                    {!! Form::text('phone', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('zipcode', '郵便番号（半角数字、ハイフンなし）') !!}
-                    {!! Form::text('zipcode', $user->zipcode, ['class' => 'form-control']) !!}
+                    {!! Form::text('zipcode', null, ['class' => 'form-control']) !!}
                 </div>
                 
                 <div class="form-group">
                     {!! Form::label('address', '住所') !!}
-                    {!! Form::text('address', $user->address, ['class' => 'form-control']) !!}
+                    {!! Form::text('address', null, ['class' => 'form-control']) !!}
                 </div>
 
                 {!! Form::submit('変更する', ['class' => 'btn btn-primary btn-block']) !!}

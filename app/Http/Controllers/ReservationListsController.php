@@ -37,27 +37,29 @@ class ReservationListsController extends Controller
             $query->where('name','like','%'.$keyword.'%');
             $query->orWhere('kana_name','like','%'.$keyword.'%');
             $query->orWhere('phone','like','%'.$keyword.'%');
+        
+            // 全件取得 +ページネーション
+            $users = $query->orderBy('id','desc')->paginate(10);
+            // 本日を取得
+            $today = date("Y-m-d");
+            
+            $lesson_schedules = LessonSchedule::where('date', '>', $today)->orderby('date')->paginate(10);
+            $reservation_list = new ReservationList;
+            
+            $data = [];
+            if (\Auth::user()->is_admin){
+                $data = [
+                    'users' => $users,
+                    'lesson_schedules' => $lesson_schedules,
+                    'reservation_list' => $reservation_list,
+                ];
+                return view('reservation_lists.create', $data);
+            } else {
+                return back();
+            }
+        } else {
+            return back();
         }
-        
-        // 全件取得 +ページネーション
-        $users = $query->orderBy('id','desc')->paginate(10);
-        // 本日を取得
-        $today = date("Y-m-d");
-        
-        $lesson_schedules = LessonSchedule::where('date', '>', $today)->orderby('date')->paginate(10);
-        $reservation_list = new ReservationList;
-        
-        $data = [];
-        if (\Auth::user()->is_admin){
-            $data = [
-                'users' => $users,
-                'lesson_schedules' => $lesson_schedules,
-                'reservation_list' => $reservation_list,
-            ];
-            return view('reservation_lists.create', $data);
-        }
-        
-        return back();
     }
     
     public function store(Request $request)
