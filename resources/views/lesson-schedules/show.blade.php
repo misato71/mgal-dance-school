@@ -7,7 +7,7 @@
     <div class="center">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">{{ $lesson_schedule->lesson->name }}</h3>
+                <h2 class="card-title">{{ $lesson_schedule->lesson->name }}</h2>
                 <p>
                     <i class="far fa-calendar-alt"></i>{{ $lesson_schedule->date }}
                     <i class="far fa-clock"></i>{{ $lesson_schedule->start_time }}～{{ $lesson_schedule->finish_time }}
@@ -15,11 +15,15 @@
             </div>
             <div class="card-body">
                 <p class="mb-0">{!! nl2br(e($lesson_schedule->lesson->comment)) !!}</p>
-                <h5><i class="fas fa-user-friends"></i>{{ $lesson_schedule->instructor->name }}</h5>
-                <img src="{{ Storage::disk('s3')->url('uploads/' . $lesson_schedule->instructor->image) }}" alt="{{ $lesson_schedule->instructor->image }}" class="instructor-icon">
-                <p class="mb-0">{!! nl2br(e($lesson_schedule->instructor->comment)) !!}</p>
-                <h5><i class="far fa-building"></i>{{ $lesson_schedule->studio->name }}</h5>
-                <img src="{{ Storage::disk('s3')->url('uploads/' . $lesson_schedule->studio->image) }}" alt="{{ $lesson_schedule->studio->image }}" class="studio-image">
+            </div>
+            <div class="card-body">
+                <h3><i class="fas fa-user-friends"></i>{{ $lesson_schedule->instructor->name }}</h3>
+                <img src="{{ Storage::disk('s3')->url('uploads/' . $lesson_schedule->instructor->image) }}" alt="{{ $lesson_schedule->instructor->image }}" class="instructor-icon rounded float-left">
+                <p class="mb-0 text-center">{!! nl2br(e($lesson_schedule->instructor->comment)) !!}</p>
+            </div>
+            <div class="card-body">
+                <h3><i class="far fa-building"></i>{{ $lesson_schedule->studio->name }}</h3>
+                <img src="{{ Storage::disk('s3')->url('uploads/' . $lesson_schedule->studio->image) }}" alt="{{ $lesson_schedule->studio->image }}" class="studio-image rounded">
             </div>
         </div>
         @if (Auth::user()->is_admin == false)

@@ -1,7 +1,15 @@
 .instructor-icon {
-    width: 100px;
+    width: 200px;
+}
+
+.instructor-image {
+    width: 500px;
+}
+
+.studio-icon {
+    width: 200px;
 }
 
 .studio-image {
-    width: 100px;
+    width: 500px;
 }

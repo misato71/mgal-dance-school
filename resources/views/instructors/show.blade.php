@@ -10,8 +10,9 @@
                 
             </div>
             <div class="card-body">
-                <p class="mb-0">{!! nl2br(e($instructor->comment)) !!}</p>
-                <img src="{{ Storage::disk('s3')->url('uploads/' . $instructor->image) }}" alt="{{ $instructor->image }}" class="instructor-icon">
+                
+                <img src="{{ Storage::disk('s3')->url('uploads/' . $instructor->image) }}" alt="{{ $instructor->image }}" class="instructor-image rounded mx-auto d-block img-thumbnail">
+                <p class="mb-0 text-center">{!! nl2br(e($instructor->comment)) !!}</p>
             </div>
         </div>
         @if (Auth::user()->is_admin)
