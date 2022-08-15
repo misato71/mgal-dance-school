@@ -11,7 +11,7 @@ class UsersController extends Controller
         $data = [];
         if (\Auth::user()->is_admin){
             // 管理者以外のユーザ全て取得
-            $users = User::where('is_admin', '==', 'false')->get();
+            $users = User::where('is_admin', '==', 0)->get();
             $data = [
                 'users' => $users,
             ];
