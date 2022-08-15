@@ -25,12 +25,14 @@
             </thead>
             <tbody>
                 @foreach ($users as $user)
-                <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->kana_name}}</td>
-                    <td>{!! link_to_route('users.show', '詳細', ['user' => $user->id], ['class' => 'btn btn-success']) !!}</td>
-                </tr>
+                    @if($user->is_admin != true)
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->kana_name}}</td>
+                            <td>{!! link_to_route('users.show', '詳細', ['user' => $user->id], ['class' => 'btn btn-success']) !!}</td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
