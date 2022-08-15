@@ -10,7 +10,8 @@ class UsersController extends Controller
     public function index() {
         $data = [];
         if (\Auth::user()->is_admin){
-            $users = User::all();
+            // 管理者以外のユーザ全て取得
+            $users = User::where('is_admin', '==', 'false')->get();
             $data = [
                 'users' => $users,
             ];
@@ -82,14 +83,15 @@ class UsersController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:100'],
-            'kana_name' => ['required', 'string', 'max:100'],
+            'kana_name' => ['required', 'string', 'max:100', 'regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u'],
             'birthday' => ['required', 'string', 'date'],
-            'phone' => ['required', 'string', 'max:11', 'min:10'],
-            'zipcode' => ['required', 'string', 'max:7', 'min:7'],
+            'phone' => ['required', 'string', 'max:11', 'min:10', 'regex:/^[0-9]{10,11}$/'],
+            'zipcode' => ['required', 'string', 'max:7', 'min:7', 'regex:/^[0-9]{7}$/'],
             'address' => ['required', 'string', 'max:100'],
         ]);
         
         $user = User::findOrFail($id);
+        
         if (\Auth::id() === $user->id){
             $data = [];
             $user->name = $request->name;

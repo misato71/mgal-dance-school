@@ -16,10 +16,12 @@ class LessonSchedulesController extends Controller
     {
         // 本日を取得
         $today = date("Y-m-d");
-        // 今月を取得
-        $this_month = date('Y-m-d', strtotime('first day of this month'));
+        // 今月初日
+        $first_date = date("Y-m-d", strtotime("first day of this month"));
+        // 今月末日
+        $last_date = date("Y-m-d", strtotime("last day of this month"));
         // 今月のスケジュール一覧を取得
-        $lesson_schedules = LessonSchedule::where('date', '>=', $this_month)->orderby('date')->paginate(10);
+        $lesson_schedules = LessonSchedule::where('date', '>=', $first_date)->where('date', '<=', $last_date)->orderby('date')->orderby('start_time')->paginate(10);
         
         // 今年を取得
         $year = date("Y");
@@ -42,8 +44,10 @@ class LessonSchedulesController extends Controller
     public function next_month($next_month) {
         // 本日を取得
         $today = date("Y-m-d");
+        // 翌月末日
+        $last_date = date("Y-m-d", strtotime("last day of next month"));
         // 翌月のスケジュール一覧を取得
-        $lesson_schedules = LessonSchedule::where('date', '>=', $next_month)->orderby('date')->paginate(10);
+        $lesson_schedules = LessonSchedule::where('date', '>=', $next_month)->where('date', '<=', $last_date)->orderby('date')->orderby('start_time')->paginate(10);
         
         // 今年を取得
         $year = date("Y");
@@ -81,7 +85,7 @@ class LessonSchedulesController extends Controller
         if(!empty($keyword)) {
             $query->where('date','like','%'.$keyword.'%');
             // 全件取得 +ページネーション
-            $lesson_schedules = $query->orderBy('id','desc')->paginate(10);
+            $lesson_schedules = $query->orderBy('start_time')->paginate(10);
         
             // 本日を取得
             $today = date("Y-m-d");
@@ -113,13 +117,19 @@ class LessonSchedulesController extends Controller
             $instructors = Instructor::all();
             $studios = Studio::all();
             
-            // スケジュール作成をビューで表示
-            return view('lesson-schedules.create', [
-                'lesson_schedule' => $lesson_schedule,
-                'lessons' => $lessons,
-                'instructors' => $instructors,
-                'studios' => $studios,
-            ]);
+            if (!$lessons->isEmpty() && !$instructors->isEmpty() && !$studios->isEmpty()) {
+                // スケジュール作成をビューで表示
+                return view('lesson-schedules.create', [
+                    'lesson_schedule' => $lesson_schedule,
+                    'lessons' => $lessons,
+                    'instructors' => $instructors,
+                    'studios' => $studios,
+                ]);
+            } else {
+                return back();
+            }
+            
+            
         }
         
         return back();

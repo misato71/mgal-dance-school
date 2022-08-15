@@ -45,7 +45,7 @@
                     {!! Form::text('address', null, ['class' => 'form-control']) !!}
                 </div>
 
-                {!! Form::submit('変更する', ['class' => 'btn btn-primary btn-block']) !!}
+                {!! Form::submit('更新する', ['class' => 'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}
             {{-- もどるのリンク --}}
             {!! link_to_route('lesson-schedules.index', 'もどる', [], ['class' => 'btn btn-secondary btn-block']) !!}

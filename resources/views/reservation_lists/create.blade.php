@@ -74,5 +74,5 @@
     {!! Form::close() !!}
     
     {{-- もどるのリンク --}}
-    {!! link_to_route('reservations', 'もどる', [], ['class' => 'btn btn-secondary btn-lg btn-block']) !!}
+    {!! link_to_route('lesson-schedules.index', 'もどる', [], ['class' => 'btn btn-secondary btn-lg btn-block']) !!}
 @endsection

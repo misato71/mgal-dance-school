@@ -13,7 +13,7 @@
 
     @if (count($lesson_schedules) > 0)
         
-        <h3>{{ $year }} 年{{ $month }}月～</h3>
+        <h3>{{ $year }} 年{{ $month }}月</h3>
         
         @if ($next_month == null)
             {!! link_to_route('lesson-schedules.index', '今月', [], ['class' => 'btn btn-link']) !!}
@@ -39,10 +39,18 @@
                     
                     @if ($lesson_schedule->date < $today)
                         <td>受付終了</td>
-                    @elseif ($lesson_schedule->reservation_limit == 0)
-                        <td>満席</td>
                     @else
-                        <td>残り{{ $lesson_schedule->reservation_limit }}席</td>
+                        <?php $exist = 0; ?>
+                        @foreach ($lesson_schedule->reservation_lists as $reservation_list)
+                            @if ($reservation_list->status == 1)
+                                <?php $exist = $exist + 1; ?>
+                            @endif    
+                        @endforeach  
+                        @if ($lesson_schedule->reservation_limit <= $exist)
+                            <td>満席</td>
+                        @else
+                            <td>残り{{ $lesson_schedule->reservation_limit - $exist }}席</td>
+                        @endif
                     @endif
                     <td>{!! link_to_route('lesson-schedules.show', '詳細', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-success']) !!}</td>
                 </tr>

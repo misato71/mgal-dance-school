@@ -24,7 +24,7 @@
                     {!! Form::file('image', null, ['class' => 'form-control']) !!}
                 </div>
 
-                {!! Form::submit('登録する', ['class' => 'btn btn-primary btn-block']) !!}
+                {!! Form::submit('更新する', ['class' => 'btn btn-primary btn-block']) !!}
 
             {!! Form::close() !!}
         </div>

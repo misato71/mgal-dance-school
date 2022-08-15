@@ -24,7 +24,7 @@
                     {!! Form::password('new_password_confirmation',['class'=>'form-control']) !!}
                 </div>
 
-                {!! Form::submit('パスワードを変更する',['class'=>'btn btn btn-primary mt-2']) !!}
+                {!! Form::submit('パスワードを更新する',['class'=>'btn btn btn-primary mt-2']) !!}
             {!! Form::close() !!}
 
         </div>

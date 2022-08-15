@@ -95,7 +95,7 @@ return [
     'numeric'              => ':attributeには、数字を指定してください。',
     'present'              => ':attributeが存在していません。',
     'regex'                => ':attributeに正しい形式を指定してください。',
-    'required'             => ':attributeは必ず指定してください。',
+    'required'             => ':attributeは必ず入力してください。',
     'required_if'          => ':otherが:valueの場合、:attributeも指定してください。',
     'required_unless'      => ':otherが:valuesでない場合、:attributeを指定してください。',
     'required_with'        => ':valuesを指定する場合は、:attributeも指定してください。',
@@ -145,6 +145,23 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'Email',
+        'password' => 'Password',
+        'name' => '名前',
+        'kana_name' => 'フリガナ',
+        'birthday' => 'お誕生日',
+        'phone' => '電話番号',
+        'zipcode' => '郵便番号',
+        'address' => '住所',
+        'lesson_id' => 'レッスン',
+        'studio_id' => 'スタジオ',
+        'instructor_id' => '講師',
+        'date' => 'レッスン日',
+        'start_time' => '開始時間',
+        'finish_time' => '終了時間',
+        'reservation_limit' => '予約できる人数',
+        'comment' => 'コメント',
+        ],
 
 ];

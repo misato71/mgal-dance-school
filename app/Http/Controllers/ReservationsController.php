@@ -20,7 +20,7 @@ class ReservationsController extends Controller
             // 管理者用予約一覧を取得
             if ($user->is_admin) {
                 // 本日からの予約を取得
-                $lesson_schedules = LessonSchedule::where('date', '>=', $today)->orderby('date')->paginate(1);
+                $lesson_schedules = LessonSchedule::where('date', '>=', $today)->orderby('date')->orderBy('start_time')->paginate(1);
                 
                 $data = [
                     'lesson_schedules' => $lesson_schedules,
@@ -105,15 +105,11 @@ class ReservationsController extends Controller
         
         // 予約枠、reservation_limit = 1、又は1以上は予約ができる
         if ($lesson_schedule->reservation_limit >= 1) {
-            $lesson_schedule->reservation_limit = $lesson_schedule->reservation_limit - 1;
-            $lesson_schedule->save();
-            
             $request->user()->reservation_lists()->create([
                 'lesson_schedule_id' => $request->lesson_schedule_id,
                 'user_id' => $request->user()->id,
                 'status' => 1,
             ]);
-            
             // 予約一覧のURLへリダイレクト
             return redirect('reservations');
             
@@ -146,11 +142,6 @@ class ReservationsController extends Controller
             // 予約をキャンセルのstatus=0に更新
             $reservation_list->status = 0;
             $reservation_list->save();
-            
-            // 予約枠、reservation_limit を+1にする
-            $lesson_schedule = LessonSchedule::findOrFail($reservation_list->lesson_schedule_id);
-            $lesson_schedule->reservation_limit = $lesson_schedule->reservation_limit + 1;
-            $lesson_schedule->save();
     
             // トップページへリダイレクトさせる
             return redirect('reservations');

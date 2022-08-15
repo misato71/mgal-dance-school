@@ -15,7 +15,7 @@
                 </div>
                 
                 <div class="form-group">
-                    {!! Form::label('comment', '内容（必須）') !!}
+                    {!! Form::label('comment', 'コメント（必須）') !!}
                     {!! Form::textarea('comment', null, ['class' => 'form-control']) !!}
                 </div>
 

@@ -53,10 +53,10 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'kana_name' => ['required', 'string', 'max:100'],
+            'kana_name' => ['required', 'string', 'max:100', 'regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u'],
             'birthday' => ['required', 'string', 'date'],
-            'phone' => ['required', 'string', 'max:11', 'min:10'],
-            'zipcode' => ['required', 'string', 'max:7', 'min:7'],
+            'phone' => ['required', 'string', 'max:11', 'min:10', 'regex:/^[0-9]{10,11}$/'],
+            'zipcode' => ['required', 'string', 'max:7', 'min:7', 'regex:/^[0-9]{7}$/'],
             'address' => ['required', 'string', 'max:100'],
         ]);
     }
