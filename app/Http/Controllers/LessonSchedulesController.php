@@ -153,19 +153,21 @@ class LessonSchedulesController extends Controller
             $lesson_schedules = LessonSchedule::all();
             // スケジュール重複の確認
             foreach ($lesson_schedules as $lesson_schedule) {
-                // 同じ時間、スタジオの重複の確認
+                // 同日、スタジオの重複の確認
                 if ($lesson_schedule->studio_id == $request->studio_id && $lesson_schedule->date == $request->date) {
-                    for ($i = $lesson_schedule->start_time; $i < $lesson_schedule->finish_time; $i++) {
-                        if ($i == $request->start_time) {
-                            return back()->with('warning','同じ時間にスタジオが重複してます！！');
-                        }
+                    // 時間がかぶっていないかの確認
+                    if ($lesson_schedule->start_time > $request->finish_time || $lesson_schedule->finish_time < $request->start_time) {
+                        
+                    } else {
+                        return back()->with('warning','同じ時間にスタジオが重複してます！！');
                     }
-                // 同じ時間、講師の重複の確認 
+                // 同日、講師の重複の確認 
                 } elseif ($lesson_schedule->instructor_id == $request->instructor_id && $lesson_schedule->date == $request->date) {
-                    for ($i = $lesson_schedule->start_time; $i < $lesson_schedule->finish_time; $i++) {
-                        if ($i == $request->start_time) {
-                            return back()->with('warning','同じ時間に講師が重複してます！！');
-                        }
+                    // 時間がかぶっていないかの確認
+                    if ($lesson_schedule->start_time > $request->finish_time || $lesson_schedule->finish_time < $request->start_time) {
+                        
+                    } else {
+                        return back()->with('warning','同じ時間に講師が重複してます！！');
                     }
                 }
             }
