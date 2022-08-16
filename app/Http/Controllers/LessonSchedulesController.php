@@ -159,7 +159,7 @@ class LessonSchedulesController extends Controller
                     if ($lesson_schedule->start_time > $request->finish_time || $lesson_schedule->finish_time < $request->start_time) {
                         
                     } else {
-                        return back()->with('warning','同じ時間にスタジオが重複してます！！');
+                        return back()->with('warning','同じ時間にスタジオが重複してます！');
                     }
                 // 同日、講師の重複の確認 
                 } elseif ($lesson_schedule->instructor_id == $request->instructor_id && $lesson_schedule->date == $request->date) {
@@ -167,7 +167,7 @@ class LessonSchedulesController extends Controller
                     if ($lesson_schedule->start_time > $request->finish_time || $lesson_schedule->finish_time < $request->start_time) {
                         
                     } else {
-                        return back()->with('warning','同じ時間に講師が重複してます！！');
+                        return back()->with('warning','同じ時間に講師が重複してます！');
                     }
                 }
             }
@@ -229,9 +229,6 @@ class LessonSchedulesController extends Controller
     
     public function update(Request $request, $id) 
     {
-        // idの値でスケジュールを検索して取得
-        $lesson_schedule = LessonSchedule::findOrFail($id);
-        
         if (\Auth::user()->is_admin) {
             // バリデーション
             $request->validate([
@@ -243,6 +240,37 @@ class LessonSchedulesController extends Controller
                 'finish_time' => 'required|string|max:5|after:start_time',
                 'reservation_limit' => 'required|integer|min:0|max:100',
             ]);
+            
+             //全てのスケジュールを取得
+            $lesson_schedules = LessonSchedule::all();
+            // スケジュール重複の確認
+            foreach ($lesson_schedules as $lesson_schedule) {
+                // 編集中のスケジュール以外で
+                if ($lesson_schedule->id != $id) {
+                    // 同日、スタジオの重複の確認
+                    if ($lesson_schedule->studio_id == $request->studio_id && $lesson_schedule->date == $request->date) {
+                        // 時間がかぶっていないかの確認
+                        if ($lesson_schedule->start_time > $request->finish_time || $lesson_schedule->finish_time < $request->start_time) {
+                            
+                        } else {
+                            return back()->with('warning','同じ時間にスタジオが重複してます！');
+                        }
+                    // 同日、講師の重複の確認 
+                    } elseif ($lesson_schedule->instructor_id == $request->instructor_id && $lesson_schedule->date == $request->date) {
+                        // 時間がかぶっていないかの確認
+                        if ($lesson_schedule->start_time > $request->finish_time || $lesson_schedule->finish_time < $request->start_time) {
+                            
+                        } else {
+                            return back()->with('warning','同じ時間に講師が重複してます！');
+                        }
+                    }
+                } else {
+                    
+                } 
+            }
+            
+            // idの値でスケジュールを検索して取得
+            $lesson_schedule = LessonSchedule::findOrFail($id);
     
             // スケジュールを更新
             $lesson_schedule->lesson_id = $request->lesson_id;
@@ -271,7 +299,7 @@ class LessonSchedulesController extends Controller
                 if ($lesson_schedule->id == $reservation_list->lesson_schedule_id) {
                     if ($reservation_list->status == 1) {
                         return redirect('lesson-schedules')
-                        ->with('warning','予約がある為削除はできません！！');
+                        ->with('warning','予約がある為削除はできません！');
                     } elseif ($reservation_list->status == 0) {
                         // キャンセル済みの場合、スケジュールと予約リストから削除
                         $reservation_list->delete();
