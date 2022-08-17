@@ -1,78 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# ダンススクールの予約アプリ
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## 1. このアプリの概要
+これは、友人がダンススクールの運営をしていて、予約作業の効率化のために開発したダンススクールの予約アプリです。
+このアプリは、ダンススクールの管理者、ダンスレッスンを予約する生徒が使うことを想定しています。
+このアプリの目的は、ダンスレッスンの登録や予約の管理、レッスン予約、生徒情報の管理もできます。
+アプリの使い方としては、管理者がこのアプリにログインし、まずはレッスン、講師、スタジオを登録し、次にスケジュールを登録していきます。
+ダンスレッスンを予約する生徒は自身の登録した情報にログインし、行きたい日のレッスン（スケジュール）を予約するという流れになっています。
+このアプリは、スマートフォンやタブレット端末のレスポンシブデザインにも対応しており、外出先や、在宅でもレッスンの予約が手軽にできます。
+以下、具体的な技術要素をまとめていますので、ご覧いただければ幸いです。
 
-## About Laravel
+## 2. 技術要素
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- 開発環境 AWS Cloud9 / Amazon Linux AMI
+- HTML5 / CSS3
+- Bootstrap 4.2.1
+- PHP 7.3.33
+- MySQL 5.7.39
+- Laravel Framework 6.20.44
+- 画像の保存 AWS / S3
+- バージョン管理 Git / GitHub
+- デプロイ Heroku / EC2
+- 実際にherokuにデプロイしたもの: https://mgal-dance-school.herokuapp.com/
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+##### ※以下のダミー管理者を使ってログインしてご利用ください。
+- 名前: test
+- メールアドレス: test@test.com
+- パスワード: test
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+##### ※以下のダミーユーザーを使ってログインしてご利用ください。
+- 名前: aru
+- メールアドレス: aru@aru.com
+- パスワード: aruarudesu
 
-## Learning Laravel
+## 2. 機能一覧
+#### (1) 管理者
+- ログイン・ログアウト機能
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+##### (1) スケジュール関連
+- スケジュール一覧表示機能
+- スケジュール詳細表示機能
+- スケジュールの日付検索機能
+- スケジュールの今月、翌月絞り込み機能
+- スケジュール登録・編集・削除機能
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+##### (2) 予約関連
+- 予約管理表示機能
+- 予約詳細表示機能
+- 予約新規追加機能
+- 予約キャンセル機能
+- 予約の日付検索機能
 
-## Laravel Sponsors
+##### (3) レッスン関連
+- レッスン一覧表示機能
+- レッスンの詳細表示機能
+- レッスンの登録・編集機能
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+##### (4) 講師関連
+- 講師一覧表示機能
+- 講師の詳細表示機能
+- 講師の登録・編集機能
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+##### (5) スタジオ関連
+- スタジオ一覧表示機能
+- スタジオの詳細表示機能
+- スタジオの登録・編集機能
 
-## Contributing
+##### (6) お客様関連
+- お客様管理一覧表示機能
+- お客様情報詳細表示機能
+- お客様の名前検索機能
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### (2) ユーザ
 
-## Code of Conduct
+##### (1) スケジュール関連
+- スケジュール一覧表示機能
+- スケジュール詳細表示機能
+- スケジュールの日付検索機能
+- スケジュールの今月、翌月絞り込み機能
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+##### (2) 予約関連
+- お客様の予約管理表示機能
+- 予約詳細表示機能
+- 予約新規追加機能
+- 予約キャンセル機能
 
-## Security Vulnerabilities
+##### (3) お客様関連
+- お客様情報の登録・編集機能
+- パスワード変更機能
+- ログイン・ログアウト機能
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 3. このアプリの資料
 
-## License
+##### ⓵最初の画面
+![最初の画面](/public/uploads/sample1.png)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+##### ⓶ログイン後のトップ画面
+![ログイン後のトップ画面(スケジュール一覧) ](/public/uploads/sample2.png)
+
+##### ➂このアプリのデータベース図
+![このアプリのデータベース図](/public/uploads/sample3.png)
+
+## 4. このWebアプリケーションを開発した経緯
+テックアカデミーでのレッスンの集大成として、このオリジナルアプリを開発しました。
+友人がダンススクールの運営をしていて、「お客様の予約の管理をLineで一人一人対応している為大変！」というお話を聞いたのがきっかけで、予約がアプリでできたらどんなに便利だろうと思い開発しました。
+ダンススクールの予約サイトとして、業務の効率化を高める目的として、このアプリ開発に取り組みました。
+
+## 5. お問い合わせ
+駆け出しエンジニアの立場で、まだまだ不勉強なためバグが潜んでいるかもしれません。
+現在、ヘッダー、フッターの作成などに挑戦しおります。
+改善点などがありましたら、以下のメールアドレスにご連絡いただけると幸いです。
+
+##### ◆メールアドレス:
+misato71h@gmail.com
+
+## 著者
+2022/08/18 Harada Misato
