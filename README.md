@@ -11,16 +11,18 @@
 
 ## 2. 技術要素
 
-- 開発環境 AWS Cloud9 / Amazon Linux AMI
+- 開発環境 AWS Cloud9 / Ubuntu Server 18.04 LTS
 - HTML5 / CSS3
 - Bootstrap 4.2.1
 - PHP 7.3.33
 - MySQL 5.7.39
 - Laravel Framework 6.20.44
 - 画像の保存 AWS / S3
-- バージョン管理 Git / GitHub
-- デプロイ Heroku / EC2
+- バージョン管理 Git 2.17.1 / GitHub
+- デプロイ Heroku
 - 実際にherokuにデプロイしたもの: https://mgal-dance-school.herokuapp.com/
+- デプロイ AWS / EC2
+- 実際にEC2にデプロイしたもの: http://18.176.18.1/
 
 ##### ※以下のダミー管理者を使ってログインしてご利用ください。
 - 名前: test
