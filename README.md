@@ -19,10 +19,11 @@
 - Laravel Framework 6.20.44
 - 画像の保存 AWS / S3
 - バージョン管理 Git 2.17.1 / GitHub
+- AWS / Elastic IP
 - デプロイ Heroku
 - 実際にherokuにデプロイしたもの: https://mgal-dance-school.herokuapp.com/
 - デプロイ AWS / EC2
-- 実際にEC2にデプロイしたもの: http://18.176.18.1/
+- 実際にEC2にデプロイしたもの: http://43.206.11.217/
 
 ##### ※以下のダミー管理者を使ってログインしてご利用ください。
 - 名前: test
