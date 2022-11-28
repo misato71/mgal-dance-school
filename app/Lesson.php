@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Studio extends Model
+class Lesson extends Model
 {
     protected $fillable = [
-        'name', 'image',
+        'name', 'comment',
     ];
     
     public function lesson_schedules()
     {
         return $this->hasMany(LessonSchedule::class);
     }
+
 }

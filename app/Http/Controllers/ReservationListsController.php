@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\LessonSchedule;
-use App\Models\ReservationList;
+use App\User;
+use App\LessonSchedule;
+use App\ReservationList;
 
 class ReservationListsController extends Controller
 {
