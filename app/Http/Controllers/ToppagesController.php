@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\User;
-use App\LessonSchedule;
-use App\Lesson;
+use App\Models\User;
+use App\Models\LessonSchedule;
+use App\Models\Lesson;
 
 class ToppagesController extends Controller
 {

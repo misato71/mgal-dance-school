@@ -1,13 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Studio extends Model
+class Instructor extends Model
 {
     protected $fillable = [
-        'name', 'image',
+        'name', 'comment', 'image',
     ];
     
     public function lesson_schedules()
