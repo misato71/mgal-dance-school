@@ -7,6 +7,10 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
+    /**
+     * ユーザ情報全て取得（管理者以外）
+     * @return array $data ユーザ情報
+     * /
     public function index() {
         $data = [];
         if (\Auth::user()->is_admin){
@@ -21,6 +25,11 @@ class UsersController extends Controller
         return back();
     }
     
+    /**
+     * ユーザ検索機能
+     * @param array $request 検索条件
+     * @return array $data 一致した名前又はフリガナのユーザを返す
+     * /
     public function search(Request $request) {
         //バリデーション
         $request->validate([
@@ -51,6 +60,11 @@ class UsersController extends Controller
         return back();
     }
     
+    /**
+     * idのユーザ情報を取得
+     * @param $id ユーザID
+     * @return array $data idのユーザ情報を返す
+     * /
     public function show($id) {
         $data = [];
         if (\Auth::user()->is_admin){
@@ -64,6 +78,11 @@ class UsersController extends Controller
         return back();
     }
     
+    /**
+     * ユーザ情報編集
+     * @param $id ユーザID
+     * @return array $data idのユーザ情報を返す
+     * /
     public function edit($id) {
         $data = [];
         $user = User::findOrFail($id);
@@ -78,6 +97,12 @@ class UsersController extends Controller
         return back();
     }
     
+    /**
+     * ユーザ情報編集内容を保存
+     * @param array $request 編集内容
+     * @param $id のユーザ上書き保存
+     * App\Models\User
+     * /
     public function update(Request $request, $id) {
         // バリデーション
         $request->validate([
