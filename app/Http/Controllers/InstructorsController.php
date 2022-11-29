@@ -6,8 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Instructor;
 
+/**
+* 講師に関するコントローラークラス
+* @package App\Http\Controllers
+*/
 class InstructorsController extends Controller
 {
+    /**
+     * 講師一覧画面表示
+     * @return 講師一覧
+     */
     public function index() {
         // 講師一覧を取得
         $instructors = Instructor::all();
@@ -17,6 +25,10 @@ class InstructorsController extends Controller
         ]);
     }
     
+    /**
+     * 新規講師作成画面表示
+     * @return 新規講師
+     */
     public function create() {
         if (\Auth::user()->is_admin) {
             $instructor = new Instructor;
@@ -30,6 +42,10 @@ class InstructorsController extends Controller
         return back();
     }
     
+    /**
+     * 講師登録
+     * @param 講師登録情報
+     */
     public function store(Request $request)
     {
         if (\Auth::user()->is_admin) {
@@ -71,6 +87,11 @@ class InstructorsController extends Controller
         return back();
     }
     
+    /**
+     * 講師詳細画面表示
+     * @param 講師のid
+     * @return idの講師詳細
+     */
     public function show($id) {
         if (\Auth::user()->is_admin) {
             // idの値で講師を検索して取得
@@ -85,6 +106,11 @@ class InstructorsController extends Controller
         return back();
     }
     
+    /**
+     * 講師編集画面表示
+     * @param 講師のid
+     * @return idの講師情報
+     */
     public function edit($id) {
         if (\Auth::user()->is_admin) {
             // idの値で講師を検索して取得
@@ -99,6 +125,10 @@ class InstructorsController extends Controller
         return back();
     }
     
+    /**
+     * 講師編集
+     * @param 講師の編集情報
+     */
     public function update(Request $request, $id)
     {
         if (\Auth::user()->is_admin) {

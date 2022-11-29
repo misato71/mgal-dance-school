@@ -10,8 +10,16 @@ use App\Models\Instructor;
 use App\Models\Studio;
 use App\Models\ReservationList;
 
+/**
+* スケジュールに関するコントローラークラス
+* @package App\Http\Controllers
+*/
 class LessonSchedulesController extends Controller
 {
+    /**
+     * スケジュール一覧画面表示
+     * @return スケジュール一覧
+     */
     public function index() 
     {
         // 本日を取得
@@ -41,6 +49,10 @@ class LessonSchedulesController extends Controller
         ]);
     }
     
+    /**
+     * 来月のスケジュール一覧画面表示
+     * @return 来月のスケジュール一覧
+     */
     public function next_month($next_month) {
         // 本日を取得
         $today = date("Y-m-d");
@@ -71,6 +83,11 @@ class LessonSchedulesController extends Controller
         ]);
     }
     
+    /**
+     * 日付検索
+     * @param 日付
+     * @return 一致した日付のスケジュール一覧
+     */
     public function search(Request $request) {
         //バリデーション
         $request->validate([
@@ -81,7 +98,7 @@ class LessonSchedulesController extends Controller
         // クエリ生成
         $query = LessonSchedule::query();
         
-         //もしキーワードがあったら
+        //もしキーワードがあったら
         if(!empty($keyword)) {
             $query->where('date','like','%'.$keyword.'%');
             // 全件取得 +ページネーション
@@ -109,6 +126,10 @@ class LessonSchedulesController extends Controller
         }
     }
     
+    /**
+     * 新規スケジュール作成画面表示
+     * @return 新規スケジュール
+     */
     public function create() 
     {
         if (\Auth::user()->is_admin) {
@@ -135,6 +156,10 @@ class LessonSchedulesController extends Controller
         return back();
     }
     
+    /**
+     * スケジュール登録
+     * @param スケジュール登録情報
+     */
     public function store(Request $request)
     {
         if (\Auth::user()->is_admin) {
@@ -192,6 +217,11 @@ class LessonSchedulesController extends Controller
         return back();
     }
     
+    /**
+     * スケジュール詳細画面表示
+     * @param スケジュールのid
+     * @return idのスケジュール詳細
+     */
     public function show($id)
     {
         // idの値でスケジュールを検索して取得
@@ -206,6 +236,11 @@ class LessonSchedulesController extends Controller
         ]);
     }
     
+    /**
+     * スケジュール編集画面表示
+     * @param スケジュールのid
+     * @return idのスケジュール情報
+     */
     public function edit($id) 
     {
         // idの値でスケジュールを検索して取得
@@ -227,6 +262,10 @@ class LessonSchedulesController extends Controller
         return back();
     }
     
+     /**
+     * スケジュール編集
+     * @param スケジュールの編集情報
+     */
     public function update(Request $request, $id) 
     {
         if (\Auth::user()->is_admin) {
@@ -288,6 +327,10 @@ class LessonSchedulesController extends Controller
         return back();
     }
     
+     /**
+     * スケジュール削除
+     * @param スケジュールのid
+     */
     public function destroy($id)
     {
         // idの値でスケジュールを検索して取得

@@ -6,8 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Studio;
 
+/**
+ * スタジオに関するコントローラークラス
+ * @package App\Http\Controllers
+ */
 class StudiosController extends Controller
 {
+    /**
+     * スタジオ一覧画面表示
+     * @return スタジオ一覧
+     */
     public function index() {
         // スタジオ一覧を取得
         $studios = Studio::all();
@@ -17,6 +25,10 @@ class StudiosController extends Controller
         ]);
     }
     
+    /**
+     * 新規スタジオ作成画面表示
+     * @return 新規スタジオ
+     */
     public function create() {
         if (\Auth::user()->is_admin) {
         
@@ -31,6 +43,10 @@ class StudiosController extends Controller
         return back();
     }
     
+    /**
+     * スタジオ登録
+     * @param スタジオ登録情報
+     */
     public function store(Request $request)
     {
         if (\Auth::user()->is_admin) {
@@ -70,6 +86,11 @@ class StudiosController extends Controller
         return back();
     }
     
+    /**
+     * スタジオ詳細画面表示
+     * @param スタジオのid
+     * @return idのスタジオ詳細
+     */
     public function show($id) {
         if (\Auth::user()->is_admin) {
             // idの値でスタジオを検索して取得
@@ -84,6 +105,11 @@ class StudiosController extends Controller
         return back();
     }
     
+    /**
+     * スタジオ編集画面表示
+     * @param スタジオのid
+     * @return idのスタジオ情報
+     */
     public function edit($id) {
         if (\Auth::user()->is_admin) {
             // idの値でスタジオを検索して取得
@@ -98,6 +124,10 @@ class StudiosController extends Controller
         return back();
     }
     
+    /**
+     * スタジオ編集
+     * @param スタジオの編集情報
+     */
     public function update(Request $request, $id)
     {
         if (\Auth::user()->is_admin) {
