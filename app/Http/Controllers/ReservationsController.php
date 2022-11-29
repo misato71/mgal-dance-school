@@ -7,8 +7,16 @@ use Illuminate\Http\Request;
 use App\Models\ReservationList;
 use App\Models\LessonSchedule;
 
+/**
+* 予約に関するコントローラークラス
+* @package App\Http\Controllers
+*/
 class ReservationsController extends Controller
 {
+    /**
+     * 予約一覧画面表示
+     * @return 予約一覧
+     */
     public function index() 
     {
         $data = [];
@@ -45,6 +53,11 @@ class ReservationsController extends Controller
         
     }
     
+    /**
+     * 予約検索
+     * @param 日付
+     * @return 予約管理画面
+     */
     public function search(Request $request) {
         //バリデーション
         $request->validate([
@@ -75,6 +88,10 @@ class ReservationsController extends Controller
         }
     }
     
+    /**
+     * 予約作成画面表示
+     * @return 予約作成画面
+     */
     public function create($id) 
     {
         $lesson_schedule = LessonSchedule::findOrFail($id);
@@ -98,7 +115,10 @@ class ReservationsController extends Controller
         }
     }
     
-    
+    /**
+     * 予約登録
+     * @param 予約情報
+     */
     public function store(Request $request)
     {
         $lesson_schedule = LessonSchedule::findOrFail($request->lesson_schedule_id);
@@ -120,7 +140,12 @@ class ReservationsController extends Controller
         
     }
     
-     public function show($id)
+    /**
+     * 予約詳細画面表示
+     * @param 予約のid
+     * @return idの予約詳細
+     */
+    public function show($id)
     {
         // idの値で予約を検索して取得
         $reservation_list = ReservationList::findOrFail($id);
@@ -133,6 +158,11 @@ class ReservationsController extends Controller
         }
     }
     
+    /**
+     * 予約キャンセル
+     * @param キャンセルの予約情報
+     * @return 予約管理画面表示
+     */
     public function update(Request $request)
     {
         // idの値で予約を検索して取得

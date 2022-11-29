@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+/**
+ * ユーザーに関すコントローラークラス
+ * @package App\Http\Controllers
+ */
 class UsersController extends Controller
 {
     /**
-     * ユーザ情報全て取得（管理者以外）
-     * @return array $data ユーザ情報
+     * ユーザ一覧画面表示
+     * @return ユーザ一覧
      * /
     public function index() {
         $data = [];
@@ -26,9 +30,9 @@ class UsersController extends Controller
     }
     
     /**
-     * ユーザ検索機能
-     * @param array $request 検索条件
-     * @return array $data 一致した名前又はフリガナのユーザを返す
+     * ユーザ名前検索
+     * @param ユーザ名前
+     * @return 一致した名前又はフリガナのユーザ一覧
      * /
     public function search(Request $request) {
         //バリデーション
@@ -61,9 +65,9 @@ class UsersController extends Controller
     }
     
     /**
-     * idのユーザ情報を取得
-     * @param $id ユーザID
-     * @return array $data idのユーザ情報を返す
+     * ユーザ情報詳細画面表示
+     * @param ユーザID
+     * @return idのユーザ情報
      * /
     public function show($id) {
         $data = [];
@@ -79,9 +83,9 @@ class UsersController extends Controller
     }
     
     /**
-     * ユーザ情報編集
-     * @param $id ユーザID
-     * @return array $data idのユーザ情報を返す
+     * ユーザ情報編集画面表示
+     * @param ユーザID
+     * @return idのユーザ情報
      * /
     public function edit($id) {
         $data = [];
@@ -98,10 +102,8 @@ class UsersController extends Controller
     }
     
     /**
-     * ユーザ情報編集内容を保存
-     * @param array $request 編集内容
-     * @param $id のユーザ上書き保存
-     * App\Models\User
+     * ユーザ情報編集
+     * @param ユーザ編集内容
      * /
     public function update(Request $request, $id) {
         // バリデーション

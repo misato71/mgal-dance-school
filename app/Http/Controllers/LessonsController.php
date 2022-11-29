@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 
 use App\Models\Lesson;
 
+/**
+* レッスンに関するコントローラークラス
+* @package App\Http\Controllers
+*/
 class LessonsController extends Controller
 {
-    // getでlessons/にアクセスされた場合の「一覧表示処理」
+    /**
+     * レッスン一覧画面表示
+     * @return レッスン一覧
+     * getでlessons/にアクセスされた場合の「一覧表示処理」
+     */
     public function index()
     {
         // レッスン一覧を取得
@@ -19,7 +27,11 @@ class LessonsController extends Controller
             'lessons' => $lessons,
         ]);
     }
-    // getでlessons/createにアクセスされた場合の「新規登録画面表示処理」
+    /**
+     * レッスン登録画面表示
+     * @return 新規レッスン
+     * getでlessons/createにアクセスされた場合の「新規登録画面表示処理」
+     */
     public function create()
     {
         if (\Auth::user()->is_admin) {
@@ -33,7 +45,11 @@ class LessonsController extends Controller
         
         return back();
     }
-    // postでlessons/にアクセスされた場合の「新規登録処理」
+    /**
+     * レッスン登録
+     * @param レッスン登録情報
+     * postでlessons/にアクセスされた場合の「新規登録処理」
+     */
     public function store(Request $request)
     {
         if (\Auth::user()->is_admin) {
@@ -56,6 +72,11 @@ class LessonsController extends Controller
         return back();
     }
     
+    /**
+     * レッスン詳細画面表示
+     * @param レッスンのid
+     * @return idのレッスン詳細
+     */
     public function show($id)
     {
         if (\Auth::user()->is_admin) {
@@ -71,6 +92,11 @@ class LessonsController extends Controller
         return back();
     }
     
+    /**
+     * レッスン編集画面表示
+     * @param レッスンのid
+     * @return idのレッスン情報
+     */
     public function edit($id) 
     {
        if (\Auth::user()->is_admin) {
@@ -86,6 +112,10 @@ class LessonsController extends Controller
         return back(); 
     }
     
+    /**
+     * レッスン編集
+     * @param レッスンの編集情報
+     */
     public function update(Request $request, $id)
     {
         if (\Auth::user()->is_admin) {

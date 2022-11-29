@@ -7,8 +7,17 @@ use App\Models\User;
 use App\Models\LessonSchedule;
 use App\Models\ReservationList;
 
+/**
+* 管理者からの予約に関するコントローラークラス
+* @package App\Http\Controllers
+*/
 class ReservationListsController extends Controller
 {
+    
+    /**
+     * 予約作成画面表示
+     * @return 予約作成画面
+     */
     public function create() 
     {
         if (\Auth::user()->is_admin) {
@@ -25,7 +34,11 @@ class ReservationListsController extends Controller
         
         return back();
     }
-    
+    /**
+     * ユーザ検索
+     * @param ユーザの名前orフリガナor電話番号
+     * @return 予約新規追加画面表示
+     */
     public function search(Request $request) {
         // キーワードを受け取り
         $keyword = $request->input('keyword');
@@ -62,6 +75,10 @@ class ReservationListsController extends Controller
         }
     }
     
+    /**
+     * 予約登録
+     * @param 予約情報
+     */
     public function store(Request $request)
     {
         $lesson_schedule = LessonSchedule::findOrFail($request->lesson_schedule_id);
@@ -107,6 +124,11 @@ class ReservationListsController extends Controller
         return back();
     }
     
+    /**
+     * 予約詳細画面表示
+     * @param 予約のid
+     * @return idの予約詳細
+     */
     public function show($id)
     {
         // idの値で予約を検索して取得
@@ -120,6 +142,11 @@ class ReservationListsController extends Controller
         }
     }
     
+     /**
+     * 予約キャンセル
+     * @param キャンセルの予約情報
+     * @return 予約管理画面表示
+     */
     public function update(Request $request)
     {
         // idの値で予約を検索して取得
