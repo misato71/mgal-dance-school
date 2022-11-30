@@ -64,7 +64,7 @@ class StudiosController extends Controller
             
             // 画像のアップロード
             if($file){
-                 // S3用
+                // S3用
                 $path = Storage::disk('s3')->putFile('/uploads', $file, 'public');
                 // パスから、最後の「ファイル名.拡張子」の部分だけ取得
                 $image = basename($path);

@@ -10,16 +10,29 @@
             <button class="btn btn-outline-success" type="submit" id="button-addon2"><i class="fas fa-search"></i> 検索</button>
         </div>
     {!! Form::close() !!}
+    
+    <h3>
+        <a class="" href="{{ route('lesson-schedules.monthly', ['month'=>$last_month]) }}"><i class="fas fa-angle-left"></i></a>
+        {{ $year }} 年{{ $month }}月
+        <a class="" href="{{ route('lesson-schedules.monthly', ['month'=>$next_month]) }}"><i class="fas fa-angle-right"></i></a>
+    </h3>
+        
+    <h4>
+        <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  月を選択
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    @foreach ($monthly as $month)
+                        <a class="dropdown-item" href="{{ route('lesson-schedules.monthly', ['month'=>$month]) }}">{{ $month }}月</a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </h4>
 
     @if (count($lesson_schedules) > 0)
-        
-        <h3>{{ $year }} 年{{ $month }}月</h3>
-        
-        @if ($next_month == null)
-            {!! link_to_route('lesson-schedules.index', '今月', [], ['class' => 'btn btn-link']) !!}
-        @else
-        {!! link_to_route('lesson-schedules.next_month', '翌月', ['next_month' => $next_month], ['class' => 'btn btn-link']) !!}
-        @endif
         <table class="table table-striped">
             <thead>
                 <tr>
