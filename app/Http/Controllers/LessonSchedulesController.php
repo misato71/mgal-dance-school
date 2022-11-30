@@ -36,8 +36,27 @@ class LessonSchedulesController extends Controller
         // 今月を取得
         $month = date("m");
         
+        // 先月を取得
+        $last_month = date('Y-m', strtotime('-1 month'));
+        
         // 翌月を取得
-        $next_month = date('Y-m-d', strtotime('first day of next month'));
+        $next_month = date('Y-m', strtotime('+1 month'));
+        
+        // 毎月を取得(去年の6月～来年の3月)
+        $monthly = [];
+        $last_year = date('Y', strtotime('-1 year'));
+        $next_year = date('Y', strtotime('+1 year'));
+        for ($i = 06; $i <= 12; $i++) {
+            $monthly[] = $last_year . '-' .$i;
+        }
+        
+        for ($i = 01; $i <= 12; $i++) {
+            $monthly[] = $year . '-' .$i;
+        }
+        
+        for ($i = 01; $i <= 03; $i++) {
+            $monthly[] = $next_year . '-' .$i;
+        }
         
         // スケジュール一覧ビューでそれを表示
         return view('lesson-schedules.index', [
@@ -45,41 +64,9 @@ class LessonSchedulesController extends Controller
             'today' => $today,
             'year' => $year,
             'month' => $month,
+            'last_month' => $last_month,
             'next_month' => $next_month,
-        ]);
-    }
-    
-    /**
-     * 来月のスケジュール一覧画面表示
-     * @return 来月のスケジュール一覧
-     */
-    public function next_month($next_month) {
-        // 本日を取得
-        $today = date("Y-m-d");
-        // 翌月末日
-        $last_date = date("Y-m-d", strtotime("last day of next month"));
-        // 翌月のスケジュール一覧を取得
-        $lesson_schedules = LessonSchedule::where('date', '>=', $next_month)->where('date', '<=', $last_date)->orderby('date')->orderby('start_time')->paginate(10);
-        
-        // 今年を取得
-        $year = date("Y");
-        // 今月を取得
-        $month = date("m");
-        
-        // 翌月、翌年を取得
-        $next = strtotime('+1 month',mktime(0, 0, 0, $month, 1, $year));
-        $year = date("Y",$next);
-        $month = date("m",$next);
-        
-        $next_month = null;
-        
-        // スケジュール一覧ビューでそれを表示
-        return view('lesson-schedules.index', [
-            'lesson_schedules' => $lesson_schedules,
-            'today' => $today,
-            'year' => $year,
-            'month' => $month,
-            'next_month' => $next_month,
+            'monthly' => $monthly,
         ]);
     }
     
@@ -359,4 +346,64 @@ class LessonSchedulesController extends Controller
         
         return back();
     }
+    
+    /**
+     * 指定月のスケジュール一覧画面表示
+     * @return 指定月のスケジュール一覧
+     */
+    public function monthly($specified_month) {
+        
+         // 本日を取得
+        $today = date("Y-m-d");
+        
+        // 月を指定
+        $first_date = date('Y-m-d', strtotime('first day of ' . $specified_month));
+        $last_date = date('Y-m-d', strtotime('last day of ' . $specified_month));
+        
+        // 翌月のスケジュール一覧を取得
+        $lesson_schedules = LessonSchedule::where('date', '>=', $first_date)->where('date', '<=', $last_date)->orderby('date')->orderby('start_time')->paginate(10);
+        
+        // 年を取得
+        $year = date("Y", strtotime($specified_month));
+        
+        // 月を取得
+        $month = date("m", strtotime($specified_month));
+
+        // 先月を取得
+        $term = 1;
+        $last_month = date('Y-m', strtotime($specified_month . " last day of -{$term} month"));
+        
+        // 翌月を取得
+        $next_month = date('Y-m', strtotime($specified_month . '+1 month'));
+        
+        // 毎月を取得(去年の6月～来年の3月)
+        $monthly = [];
+         // 今年を取得
+        $this_year = date("Y");
+        $last_year = date('Y', strtotime('-1 year'));
+        $next_year = date('Y', strtotime('+1 year'));
+        for ($i = 06; $i <= 12; $i++) {
+            $monthly[] = $last_year . '-' .$i;
+        }
+        
+        for ($i = 01; $i <= 12; $i++) {
+            $monthly[] = $this_year . '-' .$i;
+        }
+        
+        for ($i = 01; $i <= 03; $i++) {
+            $monthly[] = $next_year . '-' .$i;
+        }
+        
+        // スケジュール一覧ビューでそれを表示
+        return view('lesson-schedules.index', [
+            'lesson_schedules' => $lesson_schedules,
+            'today' => $today,
+            'year' => $year,
+            'month' => $month,
+            'last_month' => $last_month,
+            'next_month' => $next_month,
+            'monthly' => $monthly,
+        ]);
+    }
+    
 }

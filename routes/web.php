@@ -23,14 +23,16 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
+    
     // 管理者用
     Route::resource('lessons', 'LessonsController');
     Route::resource('studios', 'StudiosController');
     Route::resource('instructors', 'InstructorsController');
+    
     // スケジュール
     Route::get('lesson-schedules/search', 'LessonSchedulesController@search')->name('lesson-schedules.search');
     Route::resource('lesson-schedules', 'LessonSchedulesController');
-    Route::get('lesson-schedules/{next_month}/next_month', 'LessonSchedulesController@next_month')->name('lesson-schedules.next_month');
+    Route::get('lesson-schedules/{month}/monthly', 'LessonSchedulesController@monthly')->name('lesson-schedules.monthly');
     
     // 予約   
     Route::get('reservations/search', 'ReservationsController@search')->name('reservations.search');

@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * 講師テーブルのモデルクラス
+ * @package App\Models
+ */
 class Instructor extends Model
 {
     protected $fillable = [

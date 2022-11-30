@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * スケジュールテーブルのモデルクラス
+ * @package App\Models
+ */
 class LessonSchedule extends Model
 {
     protected $fillable = [
