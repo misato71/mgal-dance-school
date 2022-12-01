@@ -62,7 +62,7 @@
                         @if ($lesson_schedule->reservation_limit <= $exist)
                             <td>満席</td>
                         @else
-                            <td>残り{{ $lesson_schedule->reservation_limit - $exist }}席</td>
+                            <td>残り{{ $lesson_schedule->reservation_limit }}席</td>
                         @endif
                     @endif
                     <td>{!! link_to_route('lesson-schedules.show', '詳細', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-success']) !!}</td>
