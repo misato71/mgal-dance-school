@@ -14,7 +14,7 @@ class UsersController extends Controller
     /**
      * ユーザ一覧画面表示
      * @return ユーザ一覧
-     * /
+     */
     public function index() {
         $data = [];
         if (\Auth::user()->is_admin){
@@ -33,7 +33,7 @@ class UsersController extends Controller
      * ユーザ名前検索
      * @param ユーザ名前
      * @return 一致した名前又はフリガナのユーザ一覧
-     * /
+     */
     public function search(Request $request) {
         //バリデーション
         $request->validate([
@@ -68,7 +68,7 @@ class UsersController extends Controller
      * ユーザ情報詳細画面表示
      * @param ユーザID
      * @return idのユーザ情報
-     * /
+     */
     public function show($id) {
         $data = [];
         if (\Auth::user()->is_admin){
@@ -86,7 +86,7 @@ class UsersController extends Controller
      * ユーザ情報編集画面表示
      * @param ユーザID
      * @return idのユーザ情報
-     * /
+     */
     public function edit($id) {
         $data = [];
         $user = User::findOrFail($id);
@@ -104,7 +104,7 @@ class UsersController extends Controller
     /**
      * ユーザ情報編集
      * @param ユーザ編集内容
-     * /
+     */
     public function update(Request $request, $id) {
         // バリデーション
         $request->validate([
