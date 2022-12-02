@@ -45,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
     // 管理者からの予約
     Route::get('reservation-lists/search', 'ReservationListsController@search')->name('reservation-lists.search');
     Route::resource('reservation-lists', 'ReservationListsController');
+    Route::get('reservation-lists/{id}/table', 'ReservationListsController@table')->name('reservation-lists.table');
     
     // お客様情報
     Route::get('users/search', 'UsersController@search')->name('users.search');

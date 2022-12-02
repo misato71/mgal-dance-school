@@ -13,6 +13,36 @@ use App\Models\ReservationList;
 */
 class ReservationListsController extends Controller
 {
+    /**
+     * 指定スケジュールの予約一覧画面表示
+     * @return 指定スケジュールの予約一覧
+     */
+    public function table($id) 
+    {
+        $data = [];
+        if (\Auth::check()) { // 認証済みの場合
+             
+            // 認証済みユーザを取得
+            $user = \Auth::user();
+            
+            // 管理者用の場合
+            if ($user->is_admin) {
+                // スケジュールの予約を取得
+                $lesson_schedule = LessonSchedule::findOrFail($id);
+                
+                $data = [
+                    'lesson_schedule' => $lesson_schedule,
+                ];
+                
+                return view('reservation_lists.teble', $data);
+            
+            }
+            
+            return back();
+        }
+        
+        return back();
+    }
     
     /**
      * 予約作成画面表示
