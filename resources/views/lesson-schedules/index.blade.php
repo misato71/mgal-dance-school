@@ -40,7 +40,10 @@
                     <th>時間</th>
                     <th>レッスン</th>
                     <th>残り予約枠</th>
-                    <th>予約</th>
+                    <th></th>
+                    @if (Auth::user()->is_admin)
+                        <th></th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -66,6 +69,9 @@
                         @endif
                     @endif
                     <td>{!! link_to_route('lesson-schedules.show', '詳細', ['lesson_schedule' => $lesson_schedule->id], ['class' => 'btn btn-success']) !!}</td>
+                    @if (Auth::user()->is_admin)
+                    <td>{!! link_to_route('reservation-lists.table', '予約表', ['id' => $lesson_schedule->id], ['class' => 'btn btn-link']) !!}</td>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>

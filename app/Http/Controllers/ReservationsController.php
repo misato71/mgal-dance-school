@@ -21,18 +21,23 @@ class ReservationsController extends Controller
     {
         $data = [];
         if (\Auth::check()) { // 認証済みの場合
+        
             // 認証済みユーザを取得
             $user = \Auth::user();
+            
             // 本日を取得
                 $today = date('Y-m-d');
+                
             // 管理者用予約一覧を取得
             if ($user->is_admin) {
-                // 本日からの予約を取得
-                $lesson_schedules = LessonSchedule::where('date', '>=', $today)->orderby('date')->orderBy('start_time')->paginate(1);
+                // 本日から現在時刻以降の予約を1件取得
+                $lesson_schedules = LessonSchedule::where('date', $today)->orderBy('start_time')->get();
                 
                 $data = [
                     'lesson_schedules' => $lesson_schedules,
+                    'today' => $today,
                 ];
+                
                 return view('reservation_lists.index', $data);
             
             //ユーザの予約一覧を取得
@@ -73,7 +78,7 @@ class ReservationsController extends Controller
             $query->where('date','like','%'.$keyword.'%');
         
             // 全件取得 +ページネーション
-            $lesson_schedules = $query->orderBy('id','desc')->paginate(1);
+            $lesson_schedules = $query->orderBy('start_time')->get();
             
             if (\Auth::user()->is_admin){
                 $data = [
